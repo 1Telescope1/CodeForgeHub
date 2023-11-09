@@ -4,8 +4,6 @@ import { RouteObject } from 'react-router-dom'
 // 导入路由组件
 const Home=lazy(()=>import('@/views/Home'))
 const About=lazy(()=>import('@/views/About'))
-const Contact=lazy(()=>import('@/views/Contact'))
-
 
  
 const routes:RouteObject[] = [
@@ -16,10 +14,6 @@ const routes:RouteObject[] = [
   {
     path: '/about',
     element: <About />,
-  },
-  {
-    path: '/Contact',
-    element: <Contact />,
   },
 ]
  
