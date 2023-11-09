@@ -1,7 +1,6 @@
 import React, { ReactNode, memo } from "react";
 
 import { Layout,Menu,Button } from "antd";
-import type { MenuProps } from 'antd';
 import { HeaderWrapper } from "./style";
 import { useNavigate } from "react-router";
 const { Header} = Layout;

@@ -29,7 +29,7 @@
     "test": "craco test",
     "eject": "react-scripts eject",
     "prepare": "husky install",
-    "pre-commit": "lint-staged"
+    "commitlint": "commitlint --config commitlint.config.js -e -V"
   },
   "eslintConfig": {
     "extends": [
@@ -55,7 +55,7 @@
     "@craco/craco": "^7.0.0-alpha.9",
     "@types/nprogress": "^0.2.3",
     "babel-plugin-import": "^1.13.8",
-    "husky": "^8.0.3",
+    "husky": "^8.0.0",
     "lint-staged": "^15.0.2"
   }
 }
