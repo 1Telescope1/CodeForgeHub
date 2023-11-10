@@ -30,7 +30,6 @@ instance.interceptors.request.use(
 // 3. 响应拦截器，剥离无效数据，401拦截
 instance.interceptors.response.use(
   (res) => {
-    // 后台约定，响应成功，但是code不是10000，是业务逻辑失败
     if (res.data?.code != 0) {
             
       return Promise.reject(res.data);

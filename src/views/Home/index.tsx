@@ -1,4 +1,4 @@
-import React, { ReactNode, memo, useState } from "react";
+import React, { ReactNode, memo, useEffect, useRef, useState } from "react";
 
 import {
   BackTop,
@@ -16,7 +16,8 @@ import {
 } from "antd";
 import { HomeWrapper } from "./style";
 import InputModal from "@/components/InputModal";
-import useFormInput from "@/utils/inputModalUtil"
+import useFormInput from "@/utils/inputModalUtil";
+import FormInput from "@/components/FormInput";
 
 interface IProps {
   children?: ReactNode;
@@ -28,8 +29,15 @@ const Home: React.FC<IProps> = () => {
   const onLayoutChange = (e: RadioChangeEvent) => {
     setLayout(e.target.value);
   };
+
   // inputModal配置
-  const { InputModalVisible, setInputModalVisible, modalParams, handleModalParams } = useFormInput();
+  const {
+    InputModalVisible,
+    setInputModalVisible,
+    modalParams,
+    handleModalParams,
+    formInputRef,
+  } = useFormInput();
   
 
   return (
@@ -76,10 +84,10 @@ const Home: React.FC<IProps> = () => {
                     智能导入
                   </Button>
                   <Button>导入表</Button>
-                  <Button onClick={() => handleModalParams("SqlModal")}>
-                    导入配置
-                  </Button>
                   <Button onClick={() => handleModalParams("JsonModal")}>
+                    导入表结构Json配置
+                  </Button>
+                  <Button onClick={() => handleModalParams("SqlModal")}>
                     导入建表SQL
                   </Button>
                   <Button>导入Excel</Button>
@@ -101,6 +109,7 @@ const Home: React.FC<IProps> = () => {
           visible={InputModalVisible}
           onClose={() => setInputModalVisible(false)}
         ></InputModal>
+        <FormInput ref={formInputRef} />
       </div>
     </HomeWrapper>
   );
