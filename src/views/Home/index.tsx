@@ -15,46 +15,12 @@ import {
   UploadProps,
 } from "antd";
 import { HomeWrapper } from "./style";
+import InputModal from "@/components/InputModal";
+import useFormInput from "@/utils/inputModalUtil"
 
 interface IProps {
   children?: ReactNode;
 }
-
-/**
- * 输入配置视图
- */
-// const inputConfigView = (
-//   <Card
-//     title="输入配置"
-//     extra={
-//       <Select defaultValue="MySQL" style={{ width: 120 }} disabled>
-//         <Select.Option value="MySQL">MySQL</Select.Option>
-//       </Select>
-//     }
-//   >
-//     <Space size="large" wrap>
-//       <Button
-//         type="primary"
-//         ghost
-//         onClick={() => setAutoInputModalVisible(true)}
-//       >
-//         智能导入
-//       </Button>
-//       <Button onClick={() => setImportTableDrawerVisible(true)}>
-//         导入表
-//       </Button>
-//       <Button onClick={() => setJsonInputModalVisible(true)}>导入配置</Button>
-//       <Button onClick={() => setSqlInputModalVisible(true)}>
-//         导入建表 SQL
-//       </Button>
-//       <Upload {...uploadProps}>
-//         <Button>导入 Excel</Button>
-//       </Upload>
-//     </Space>
-//     <div style={{ marginTop: 16 }} />
-//     <FormInput ref={formInputRef} onSubmit={doGenerateBySchema} />
-//   </Card>
-// );
 
 const Home: React.FC<IProps> = () => {
   const [layout, setLayout] = useState("half");
@@ -62,6 +28,9 @@ const Home: React.FC<IProps> = () => {
   const onLayoutChange = (e: RadioChangeEvent) => {
     setLayout(e.target.value);
   };
+  // inputModal配置
+  const { InputModalVisible, setInputModalVisible, modalParams, handleModalParams } = useFormInput();
+  
 
   return (
     <HomeWrapper>
@@ -102,12 +71,18 @@ const Home: React.FC<IProps> = () => {
               }
             >
               <div>
-                <Space size={'large'}>
-                <Button>智能导入</Button>
-                <Button>导入表</Button>
-                <Button>导入配置</Button>
-                <Button>导入建表SQL</Button>
-                <Button>导入Excel</Button>
+                <Space size={"large"}>
+                  <Button onClick={() => handleModalParams("AutoModal")}>
+                    智能导入
+                  </Button>
+                  <Button>导入表</Button>
+                  <Button onClick={() => handleModalParams("SqlModal")}>
+                    导入配置
+                  </Button>
+                  <Button onClick={() => handleModalParams("JsonModal")}>
+                    导入建表SQL
+                  </Button>
+                  <Button>导入Excel</Button>
                 </Space>
               </div>
             </Card>
@@ -121,6 +96,11 @@ const Home: React.FC<IProps> = () => {
             456
           </Col>
         </Row>
+        <InputModal
+          modalParams={modalParams}
+          visible={InputModalVisible}
+          onClose={() => setInputModalVisible(false)}
+        ></InputModal>
       </div>
     </HomeWrapper>
   );

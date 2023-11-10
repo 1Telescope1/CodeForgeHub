@@ -5,7 +5,9 @@ interface IProps {
 }
 
 const FormInput: React.FC<IProps> = () => {
-  return <div>FormInput</div>
+  return (
+    <div>FormInput</div>
+  )
 }
 
 export default memo(FormInput)
