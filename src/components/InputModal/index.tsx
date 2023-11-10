@@ -1,4 +1,4 @@
-import { modalParamsType } from "@/constant/modalParamsType";
+import { modalParamsType } from "@/model/modalParamsType";
 import { Button, Form, Modal, Space } from "antd";
 import TextArea from "antd/es/input/TextArea";
 import React, { ReactNode, memo } from "react";

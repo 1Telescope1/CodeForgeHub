@@ -1,4 +1,4 @@
-import React, { ReactNode, memo, useEffect, useRef, useState } from "react";
+import React, { ReactNode, memo, useState } from "react";
 
 import {
   BackTop,
@@ -18,14 +18,15 @@ import { HomeWrapper } from "./style";
 import InputModal from "@/components/InputModal";
 import useFormInput from "@/utils/inputModalUtil";
 import FormInput from "@/components/FormInput";
+import { generateBySchema } from "@/services/sql";
 
 interface IProps {
   children?: ReactNode;
 }
 
 const Home: React.FC<IProps> = () => {
-  const [layout, setLayout] = useState("half");
   //更改布局
+  const [layout, setLayout] = useState("half");
   const onLayoutChange = (e: RadioChangeEvent) => {
     setLayout(e.target.value);
   };
@@ -38,6 +39,21 @@ const Home: React.FC<IProps> = () => {
     handleModalParams,
     formInputRef,
   } = useFormInput();
+
+  const [result, setResult] = useState<GenerateVO>();
+  const [genLoading, setGenLoading] = useState(false);
+  // 根据 Schema 生成
+  const doGenerateBySchema = async (values: TableSchema) => {
+    setGenLoading(true);
+    try {
+      const res = await generateBySchema(values);
+      setResult(res.data);
+      message.success('已生成');
+    } catch (e: any) {
+      message.error('生成错误，' + e.message);
+    }
+    setGenLoading(false);
+  };
   
 
   return (
@@ -93,6 +109,7 @@ const Home: React.FC<IProps> = () => {
                   <Button>导入Excel</Button>
                 </Space>
               </div>
+              <FormInput ref={formInputRef} onSubmit={doGenerateBySchema} />
             </Card>
           </Col>
           <Col
@@ -109,7 +126,6 @@ const Home: React.FC<IProps> = () => {
           visible={InputModalVisible}
           onClose={() => setInputModalVisible(false)}
         ></InputModal>
-        <FormInput ref={formInputRef} />
       </div>
     </HomeWrapper>
   );

@@ -3,7 +3,7 @@ import {
   JSON_INPUT_EXAMPLE,
   SQL_INPUT_EXAMPLE,
 } from "@/constant/examples";
-import { modalParamsType } from "@/constant/modalParamsType";
+import { modalParamsType } from "@/model/modalParamsType";
 import { getSchemaByAuto, getSchemaBySql } from "@/services/sql";
 import { message } from "antd";
 import { useRef, useState } from "react";
