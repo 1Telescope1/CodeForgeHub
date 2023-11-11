@@ -101,25 +101,15 @@ export const COMMON_FIELD_LIST: Field[] = [
 /**
  * 模拟类型列表
  */
-export const MOCK_TYPE_LIST = ['固定', '随机', '递增', '规则', '词库', '不模拟'];
+export const MOCK_TYPE_LIST = [{value:'固定',label:'固定'},{value:'随机',label:'随机'},{value:'递增',label:'递增'},{value:'规则',label:'规则'},{value:'词库',label:'词库'},{value:'不模拟',label:'不模拟'},];
+
 
 /**
  * 模拟参数随机生成类型列表
  */
-export const MOCK_PARAMS_RANDOM_TYPE_LIST = [
-  '字符串',
-  '整数',
-  '小数',
-  '日期',
-  '时间戳',
-  '网址',
-  'IP',
-  '邮箱',
-  '手机号',
-  '人名',
-  '城市',
-  '大学',
-];
+export const MOCK_PARAMS_RANDOM_TYPE_LIST =[
+  {value:'字符串',label:'字符串'},{value:'整数',label:'整数'},{value:'小数',label:'小数'},{value:'日期',label:'日期'},{value:'时间戳',label:'时间戳'},{value:'网址',label:'网址'},{value:'IP',label:'IP'},{value:'邮箱',label:'邮箱'},{value:'手机号',label:'手机号'},{value:'人名',label:'人名'},{value:'城市',label:'城市'},{value:'大学',label:'大学'},
+]
 
 /**
  * 审核状态枚举
