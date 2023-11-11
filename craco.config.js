@@ -1,5 +1,6 @@
 const path = require("path");
 const CracoLessPlugin = require("craco-less");
+const ReactRefreshWebpackPlugin = require("@pmmmwh/react-refresh-webpack-plugin");
 
 const resolve = (dir) => path.resolve(__dirname, dir);
 
@@ -26,6 +27,28 @@ module.exports = {
     },
   ],
   webpack: {
+    plugins: [
+      // 添加 React Refresh 插件
+      new ReactRefreshWebpackPlugin(),
+    ],
+    configure: (webpackConfig) => {
+      // 找到 babel-loader 的配置
+      const babelLoader = webpackConfig.module.rules.find(
+        (rule) =>
+          rule.use &&
+          rule.use.loader &&
+          rule.use.loader.includes("babel-loader")
+      );
+
+      // 启用 react-refresh/babel 插件
+      if (babelLoader) {
+        babelLoader.use.options.plugins.push(
+          require.resolve("react-refresh/babel")
+        );
+      }
+
+      return webpackConfig;
+    },
     alias: {
       "@": resolve("src"),
       components: resolve("src/components"),
