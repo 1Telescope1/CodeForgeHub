@@ -31,6 +31,8 @@ import React, {
 import { FormInputWrapper } from "./style";
 import { UpOutlined, DownOutlined, PlusOutlined } from "@ant-design/icons";
 import copy from "copy-to-clipboard";
+import CreateModal from "../CreateModal";
+import useCreateModal from "@/utils/createModalUtils";
 
 const { Option } = Select;
 
@@ -44,16 +46,21 @@ const FormInput: React.FC<IProps> = forwardRef((IProps, ref) => {
   const { onSubmit } = IProps;
   const [form] = Form.useForm();
   const [dictList, setDictList] = useState<DictType.Dict[]>([]);
-  const [fieldInfoCreateModalVisible, setFieldInfoCreateModalVisible] =
-    useState(false);
-  const [tableInfoCreateModalVisible, setTableInfoCreateModalVisible] =
-    useState(false);
-  const [createFieldInfo, setCreateFieldInfo] =
-    useState<FieldInfoType.FieldInfo>();
-  const [createTableInfo, setCreateTableInfo] =
-    useState<TableInfoType.TableInfo>();
   const [importFieldDrawerVisible, setImportFieldDrawerVisible] =
     useState(false);
+
+  // CreateModal参数
+  const {
+    modalParams,
+    setModalParams,
+    CreateModalVisible,
+    setCreateModalVisible,
+    FieldInfoCreateModal,
+    TableInfoCreateModal,
+    initialValues,
+    setInitialValues,
+  } = useCreateModal();
+
   // 导入字段的位置
   const [importIndex, setImportIndex] = useState(0);
   // 字段折叠面板展开的键
@@ -89,11 +96,12 @@ const FormInput: React.FC<IProps> = forwardRef((IProps, ref) => {
   // 保存字段
   const saveField = (e: any, index: number) => {
     const fieldInfo = form.getFieldsValue().fieldList[index];
-    setCreateFieldInfo({
+    setInitialValues({
       name: fieldInfo.comment,
       content: JSON.stringify(fieldInfo),
     } as FieldInfoType.FieldInfo);
-    setFieldInfoCreateModalVisible(true);
+    setModalParams(FieldInfoCreateModal);
+    setCreateModalVisible(true);
     e.stopPropagation();
   };
 
@@ -480,11 +488,12 @@ const FormInput: React.FC<IProps> = forwardRef((IProps, ref) => {
                     return;
                   }
                   const values = form.getFieldsValue();
-                  setCreateTableInfo({
+                  setInitialValues({
                     name: values.tableComment,
                     content: JSON.stringify(values),
                   } as TableInfoType.TableInfo);
-                  setTableInfoCreateModalVisible(true);
+                  setModalParams(TableInfoCreateModal);
+                  setCreateModalVisible(true);
                 }}
               >
                 保存表
@@ -501,6 +510,13 @@ const FormInput: React.FC<IProps> = forwardRef((IProps, ref) => {
             </Space>
           </Form.Item>
         </Form>
+        <CreateModal
+          modalVisible={CreateModalVisible}
+          initialValues={initialValues}
+          onSubmit={() => setCreateModalVisible(false)}
+          onCancel={() => setCreateModalVisible(false)}
+          modalParams={modalParams}
+        />
       </FormInputWrapper>
     </>
   );

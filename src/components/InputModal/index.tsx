@@ -1,10 +1,10 @@
-import { modalParamsType } from "@/model/modalParamsType";
+import { inputModalParamsType } from "@/model/modalParamsType";
 import { Button, Form, Modal, Space } from "antd";
 import TextArea from "antd/es/input/TextArea";
 import React, { ReactNode, memo } from "react";
 
 interface IProps {
-  modalParams: modalParamsType;
+  modalParams: inputModalParamsType;
   visible: boolean;
   onClose: () => void;
   children?: ReactNode;
@@ -23,6 +23,7 @@ const AutoInputModal: React.FC<IProps> = (IProps) => {
         footer={null}
         onCancel={onClose}
         destroyOnClose={true}
+        maskClosable={false}
       >
         <Form
           form={form}

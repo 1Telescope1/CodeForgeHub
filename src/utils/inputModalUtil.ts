@@ -3,7 +3,7 @@ import {
   JSON_INPUT_EXAMPLE,
   SQL_INPUT_EXAMPLE,
 } from "@/constant/examples";
-import { modalParamsType } from "@/model/modalParamsType";
+import { inputModalParamsType } from "@/model/modalParamsType";
 import { getSchemaByAuto, getSchemaBySql } from "@/services/sql";
 import { message } from "antd";
 import { useRef, useState } from "react";
@@ -69,7 +69,7 @@ const useFormInput = () => {
   // 设置modal显示或隐藏
   const [InputModalVisible, setInputModalVisible] = useState(false);
 
-  const [modalParams, setModalParams] = useState<modalParamsType>(AutoModal);
+  const [modalParams, setModalParams] = useState<inputModalParamsType>(AutoModal);
 
   const handleModalParams = (key: string) => {
     switch (key) {

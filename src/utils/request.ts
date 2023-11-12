@@ -31,7 +31,7 @@ instance.interceptors.request.use(
 instance.interceptors.response.use(
   (res) => {
     if (res.data?.code != 0) {
-            
+      close()
       return Promise.reject(res.data);
     }
     // 业务逻辑成功，返回响应数据，作为axios成功的结果
