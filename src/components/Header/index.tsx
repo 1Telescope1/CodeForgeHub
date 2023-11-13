@@ -19,7 +19,7 @@ const headerStyle: React.CSSProperties = {
 };
 
 const HeaderIndex: React.FC<IProps> = () => {
-  const menuList=[{label:'代码生成',key:'/'},{label:'词库大全',key:'/about'}]
+  const menuList=[{label:'代码生成',key:'/home'},{label:'词库大全',key:'/about'}]
 
   const navigate=useNavigate()
   const pushRouter=(e:any)=>{
@@ -42,18 +42,12 @@ const HeaderIndex: React.FC<IProps> = () => {
             onClick={pushRouter}
               theme="light"
               mode="horizontal"
-              defaultSelectedKeys={["/"]}
-              items={menuList.map((item) => {
-                const key = item.key;
-                return {
-                  key,
-                  label: `${item.label}`,
-                };
-              })}
+              defaultSelectedKeys={["/home"]}
+              items={menuList}
             />
           </div>
           <div className="right">
-              <Button type="primary" ghost onClick={()=>pushRouter({key:'login'})}>登录</Button>
+              <Button type="primary" ghost onClick={()=>pushRouter({key:'/user/login'})}>登录</Button>
           </div>
         </HeaderWrapper>
       </Header>

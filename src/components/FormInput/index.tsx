@@ -209,9 +209,8 @@ const FormInput: React.FC<IProps> = forwardRef((IProps, ref) => {
                                 move(index, index - 1);
                                 e.stopPropagation();
                               }}
-                            >
-                              <UpOutlined />
-                            </Button>
+                              icon={<UpOutlined />}
+                            ></Button>
                           )}
                           {index < fields.length - 1 && (
                             <Button
@@ -220,9 +219,8 @@ const FormInput: React.FC<IProps> = forwardRef((IProps, ref) => {
                                 move(index, index + 1);
                                 e.stopPropagation();
                               }}
-                            >
-                              <DownOutlined />
-                            </Button>
+                              icon={<DownOutlined />}
+                            ></Button>
                           )}
                           <Button
                             type="text"
