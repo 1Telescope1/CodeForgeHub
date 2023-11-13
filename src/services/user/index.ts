@@ -1,5 +1,9 @@
 import { request } from "@/utils/request";
 
+// 用户注册
+export const userRegister = (params: UserType.UserRegisterRequest) =>
+  request<number>(`/user/register`, "POST", params);
+
 // 用户登录
 export const userLogin = (params: UserType.UserLoginRequest) =>
   request<UserType.UserVO>(`/user/login`, "POST", params);

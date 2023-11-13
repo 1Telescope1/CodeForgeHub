@@ -2,22 +2,16 @@ import React, { ReactNode, memo, useRef } from "react";
 import { LoginWrapper } from "./style";
 import { Button, Form, Input, message } from "antd";
 import { userLogin } from "@/services/user";
-import { shallowEqualApp, useAppDispatch, useAppSelector } from "@/store";
+import { useAppDispatch } from "@/store";
 import { changeUserAction } from "@/store/modules/user";
 import { useNavigate } from "react-router";
-import { LockOutlined, UserOutlined } from "@ant-design/icons";
+import { CloseOutlined, LockOutlined, UserOutlined } from "@ant-design/icons";
 
 interface IProps {
   children?: ReactNode;
 }
 
 const Login: React.FC<IProps> = () => {
-  const { loginUser } = useAppSelector(
-    (state) => ({
-      loginUser: state.user.loginUser,
-    }),
-    shallowEqualApp
-  );
   const dispatch = useAppDispatch();
 
   const navigate = useNavigate();
