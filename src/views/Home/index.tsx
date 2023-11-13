@@ -22,12 +22,21 @@ import { generateBySchema } from "@/services/sql";
 import ImportDrawer from "@/components/ImportDrawer";
 import DrawerCard from "@/components/DrawerCard";
 import useCard from "@/utils/cardUtils";
+import { shallowEqualApp, useAppDispatch, useAppSelector } from "@/store";
 
 interface IProps {
   children?: ReactNode;
 }
 
 const Home: React.FC<IProps> = () => {
+  const {loginUser} =useAppSelector((state)=>({
+    loginUser:state.user.loginUser
+  }),shallowEqualApp)
+  const dispatch=useAppDispatch()
+  // useEffect(() => {
+  //   dispatch(change(456))
+  // }, []);
+
   //更改布局
   const [layout, setLayout] = useState("half");
   const onLayoutChange = (e: RadioChangeEvent) => {
