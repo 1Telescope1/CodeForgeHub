@@ -1,4 +1,4 @@
-import React, { ReactNode, memo, useState } from "react";
+import React, { ReactNode, memo, useRef, useState } from "react";
 
 import {
   BackTop,
@@ -19,6 +19,8 @@ import InputModal from "@/components/InputModal";
 import useFormInput from "@/utils/inputModalUtil";
 import FormInput from "@/components/FormInput";
 import { generateBySchema } from "@/services/sql";
+import ImportDrawer from "@/components/ImportDrawer";
+import DrawerCard from "@/components/DrawerCard";
 
 interface IProps {
   children?: ReactNode;
@@ -40,6 +42,16 @@ const Home: React.FC<IProps> = () => {
     formInputRef,
   } = useFormInput();
 
+  const ImportDrawerRef:any=useRef()
+  // 控制抽屉显示
+  const [importTableDrawerVisible, setImportTableDrawerVisible] =
+    useState(false);
+  const onImport=(tableInfo:any) => {
+    formInputRef.current.setFormValues(JSON.parse(tableInfo.content));
+    setImportTableDrawerVisible(false);
+    message.success("导入成功");
+  }
+
   const [result, setResult] = useState<GenerateVO>();
   const [genLoading, setGenLoading] = useState(false);
   // 根据 Schema 生成
@@ -48,13 +60,12 @@ const Home: React.FC<IProps> = () => {
     try {
       const res = await generateBySchema(values);
       setResult(res.data);
-      message.success('已生成');
+      message.success("已生成");
     } catch (e: any) {
-      message.error('生成错误，' + e.message);
+      message.error("生成错误，" + e.message);
     }
     setGenLoading(false);
   };
-  
 
   return (
     <HomeWrapper>
@@ -99,7 +110,7 @@ const Home: React.FC<IProps> = () => {
                   <Button onClick={() => handleModalParams("AutoModal")}>
                     智能导入
                   </Button>
-                  <Button>导入表</Button>
+                  <Button onClick={() => setImportTableDrawerVisible(true)}>导入表</Button>
                   <Button onClick={() => handleModalParams("JsonModal")}>
                     导入表结构Json配置
                   </Button>
@@ -126,6 +137,14 @@ const Home: React.FC<IProps> = () => {
           visible={InputModalVisible}
           onClose={() => setInputModalVisible(false)}
         ></InputModal>
+        <ImportDrawer
+          ref={ImportDrawerRef}
+          visible={importTableDrawerVisible}
+          onClose={() => setImportTableDrawerVisible(false)}
+          title="导入表"
+        >
+          <DrawerCard onLoad={ImportDrawerRef.current?.loadMyData} onImport={onImport}></DrawerCard>
+        </ImportDrawer>
       </div>
     </HomeWrapper>
   );

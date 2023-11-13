@@ -1,6 +1,6 @@
-import { Result } from '@/model/result';
-import axios, { AxiosError, type Method } from 'axios'
-import { start,close } from './nprogress';
+import { Result } from "@/model/result";
+import axios, { type Method } from "axios";
+import { start, close } from "./nprogress";
 
 // 1. 新axios实例，基础配置
 const baseURL = process.env.REACT_APP_BASE_URL;
@@ -9,12 +9,11 @@ const instance = axios.create({
   timeout: 20000,
 });
 
-
 // 2. 请求拦截器，携带token
 instance.interceptors.request.use(
   (config) => {
-    start()
-    
+    start();
+
     // const token=getToken()
     // if(token&&config.headers) {
     //   config.headers.Authorization = `Bearer ${token}`;
@@ -23,19 +22,19 @@ instance.interceptors.request.use(
   },
   (err) => {
     // notification(err,'error')
-    Promise.reject(err)
+    Promise.reject(err);
   }
 );
 
 // 3. 响应拦截器，剥离无效数据，401拦截
 instance.interceptors.response.use(
   (res) => {
-    if (res.data?.code != 0) {
-      close()
+    if (res.data?.code !== 0) {
+      close();
       return Promise.reject(res.data);
     }
     // 业务逻辑成功，返回响应数据，作为axios成功的结果
-    close()
+    close();
     return res.data;
   },
   (err) => {
@@ -43,15 +42,15 @@ instance.interceptors.response.use(
     //   notification(err.response.statusText,"error")
     // }
 
-    const response=err.response.data
-    close()
+    const response = err.response.data;
+    close();
     return Promise.reject(err);
   }
 );
 
 export const request = <T>(
   url: string,
-  method: Method = 'GET',
+  method: Method = "GET",
   submitData?: object
 ) => {
   // 参数：地址，请求方式，提交的数据
@@ -59,6 +58,6 @@ export const request = <T>(
   return instance.request<any, Result<T>>({
     url,
     method,
-    [method.toUpperCase() === 'GET' ? 'params' : 'data']: submitData
-  })
-}
+    [method.toUpperCase() === "GET" ? "params" : "data"]: submitData,
+  });
+};
