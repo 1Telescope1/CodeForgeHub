@@ -1,4 +1,4 @@
-import React, { ReactNode, memo, useRef, useState } from "react";
+import React, { ReactNode, memo, useEffect, useRef, useState } from "react";
 
 import {
   BackTop,
@@ -21,6 +21,7 @@ import FormInput from "@/components/FormInput";
 import { generateBySchema } from "@/services/sql";
 import ImportDrawer from "@/components/ImportDrawer";
 import DrawerCard from "@/components/DrawerCard";
+import useCard from "@/utils/cardUtils";
 
 interface IProps {
   children?: ReactNode;
@@ -42,15 +43,24 @@ const Home: React.FC<IProps> = () => {
     formInputRef,
   } = useFormInput();
 
-  const ImportDrawerRef:any=useRef()
+  const ImportDrawerRef: any = useRef();
   // 控制抽屉显示
   const [importTableDrawerVisible, setImportTableDrawerVisible] =
     useState(false);
-  const onImport=(tableInfo:any) => {
+  const onImport = (tableInfo: any) => {
     formInputRef.current.setFormValues(JSON.parse(tableInfo.content));
     setImportTableDrawerVisible(false);
     message.success("导入成功");
-  }
+  };
+
+  // 控制card里面的请求方法
+  const { listTableInfoByPage,setLoadService } = useCard();
+
+  
+  const importTableDrawerHandle = () => {
+    setLoadService(listTableInfoByPage)
+    setImportTableDrawerVisible(true);
+  };
 
   const [result, setResult] = useState<GenerateVO>();
   const [genLoading, setGenLoading] = useState(false);
@@ -110,7 +120,7 @@ const Home: React.FC<IProps> = () => {
                   <Button onClick={() => handleModalParams("AutoModal")}>
                     智能导入
                   </Button>
-                  <Button onClick={() => setImportTableDrawerVisible(true)}>导入表</Button>
+                  <Button onClick={importTableDrawerHandle}>导入表</Button>
                   <Button onClick={() => handleModalParams("JsonModal")}>
                     导入表结构Json配置
                   </Button>
@@ -143,7 +153,11 @@ const Home: React.FC<IProps> = () => {
           onClose={() => setImportTableDrawerVisible(false)}
           title="导入表"
         >
-          <DrawerCard onLoad={ImportDrawerRef.current?.loadMyData} onImport={onImport}></DrawerCard>
+          <DrawerCard
+            title="表信息列表"
+            onLoad={ImportDrawerRef.current?.loadMyData}
+            onImport={onImport}
+          ></DrawerCard>
         </ImportDrawer>
       </div>
     </HomeWrapper>

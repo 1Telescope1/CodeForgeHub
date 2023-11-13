@@ -35,8 +35,6 @@ const ImportDrawer: React.FC<IProps> = forwardRef((IProps, ref) => {
             ) => {
               listMyTableInfoByPage(searchParams)
                 .then((res) => {
-                  console.log(res);
-
                   setDataList(res.data.records);
                   setTotal(res.data.total);
                 })

@@ -1,14 +1,44 @@
-import React,{ReactNode,memo} from 'react'
+import { getInitialState } from "@/utils/access";
+import React, { ReactNode, memo, useEffect, useState } from "react";
 
 interface IProps {
-  onLoad:any
-  onImport?:(valuse:any)=>void
-  children?:ReactNode
+  title: string;
+  needLogin?: boolean;
+  showTag?: boolean;
+  onLoad?: (
+    searchParams:
+      | FieldInfoType.FieldInfoQueryRequest
+      | TableInfoType.TableInfoQueryRequest,
+    setDataList: (
+      dataList: FieldInfoType.FieldInfo[] | TableInfoType.TableInfo[]
+    ) => void,
+    setTotal: (total: number) => void
+  ) => void;
+  onImport?: (
+    values: FieldInfoType.FieldInfo | TableInfoType.TableInfo
+  ) => void;
+  children?: ReactNode;
 }
 
 const DrawerCard: React.FC<IProps> = (IProps) => {
-  const {onLoad,onImport}=IProps
-  return <div>4214</div>
-}
+  const { title, needLogin = false, showTag = true, onLoad, onImport } = IProps;
 
-export default memo(DrawerCard)
+  useEffect(() => {
+    // const fetchData = async () => {      
+    //   try {
+    //     const initialState = await getInitialState();
+    //     const loginUser = initialState?.loginUser;
+    //   } catch (error) {}
+    // };
+
+    // fetchData()
+    // console.log(123);
+    console.log(123);
+    
+    
+  });
+
+  return <div>{title}</div>;
+};
+
+export default memo(DrawerCard);
