@@ -6,7 +6,7 @@ import React, {
 } from "react";
 
 interface IProps {
-  ref: any;
+  ref?: any;
   visible: boolean;
   onClose: () => void;
   title: string;

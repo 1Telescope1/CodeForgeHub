@@ -44,7 +44,7 @@ const Home: React.FC<IProps> = () => {
   } = useFormInput();
 
   const { loadTableData } = useCard();
-  let onLoad=loadTableData()
+  const onLoad = loadTableData();
 
   const ImportDrawerRef: any = useRef();
   // 控制抽屉显示
@@ -155,7 +155,7 @@ const Home: React.FC<IProps> = () => {
             title="表信息列表"
             onLoad={onLoad}
             onImport={onImport}
-            pushRoute="/table/all"
+            pushRoute="/home"
           ></DrawerCard>
         </ImportDrawer>
       </div>

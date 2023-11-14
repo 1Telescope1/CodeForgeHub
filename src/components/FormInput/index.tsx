@@ -33,6 +33,8 @@ import { UpOutlined, DownOutlined, PlusOutlined } from "@ant-design/icons";
 import copy from "copy-to-clipboard";
 import CreateModal from "../CreateModal";
 import useCreateModal from "@/utils/createModalUtils";
+import ImportDrawer from "../ImportDrawer";
+import DrawerCard from "../DrawerCard";
 
 const { Option } = Select;
 
@@ -470,6 +472,21 @@ const FormInput: React.FC<IProps> = forwardRef((IProps, ref) => {
                     </Button>
                   </Space>
                 </Form.Item>
+                <ImportDrawer
+                  title="导入字段"
+                  visible={importFieldDrawerVisible}
+                  onClose={() => setImportFieldDrawerVisible(false)}
+                >
+                  <DrawerCard
+                    title="字段信息列表"
+                    pushRoute="/home"
+                    onImport={(fieldInfo) => {
+                      add(JSON.parse(fieldInfo.content), importIndex);
+                      setImportFieldDrawerVisible(false);
+                      message.success("导入成功");
+                    }}
+                  ></DrawerCard>
+                </ImportDrawer>
               </>
             )}
           </Form.List>
