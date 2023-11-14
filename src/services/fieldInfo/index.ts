@@ -13,3 +13,13 @@ export const listFieldInfoByPage = (
     "GET",
     params
   );
+
+// 分页获取当前用户的资源列表
+export const listMyFieldInfoByPage = (
+  params: FieldInfoType.FieldInfoQueryRequest
+) =>
+  request<PageInfo<FieldInfoType.FieldInfo>>(
+    `/field_info/my/list/page`,
+    "GET",
+    params
+  );

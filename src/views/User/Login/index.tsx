@@ -20,6 +20,10 @@ const Login: React.FC<IProps> = () => {
   };
 
   const [form] = Form.useForm();
+  const initialValues = {
+    userAccount: 'test',
+    userPassword: '12345678',
+  };
 
   // 用户登录
   const doUserLogin = async (fields: UserType.UserLoginRequest) => {
@@ -65,7 +69,7 @@ const Login: React.FC<IProps> = () => {
           <Form
             name="basic"
             form={form}
-            initialValues={{ remember: true }}
+            initialValues={initialValues}
             onFinish={doUserLogin}
             autoComplete="off"
           >

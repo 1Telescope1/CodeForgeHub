@@ -22,21 +22,12 @@ import { generateBySchema } from "@/services/sql";
 import ImportDrawer from "@/components/ImportDrawer";
 import DrawerCard from "@/components/DrawerCard";
 import useCard from "@/utils/cardUtils";
-import { shallowEqualApp, useAppDispatch, useAppSelector } from "@/store";
 
 interface IProps {
   children?: ReactNode;
 }
 
 const Home: React.FC<IProps> = () => {
-  const {loginUser} =useAppSelector((state)=>({
-    loginUser:state.user.loginUser
-  }),shallowEqualApp)
-  const dispatch=useAppDispatch()
-  // useEffect(() => {
-  //   dispatch(change(456))
-  // }, []);
-
   //更改布局
   const [layout, setLayout] = useState("half");
   const onLayoutChange = (e: RadioChangeEvent) => {
@@ -52,6 +43,9 @@ const Home: React.FC<IProps> = () => {
     formInputRef,
   } = useFormInput();
 
+  const { loadTableData } = useCard();
+  let onLoad=loadTableData()
+
   const ImportDrawerRef: any = useRef();
   // 控制抽屉显示
   const [importTableDrawerVisible, setImportTableDrawerVisible] =
@@ -62,12 +56,7 @@ const Home: React.FC<IProps> = () => {
     message.success("导入成功");
   };
 
-  // 控制card里面的请求方法
-  const { listTableInfoByPage,setLoadService } = useCard();
-
-  
   const importTableDrawerHandle = () => {
-    setLoadService(listTableInfoByPage)
     setImportTableDrawerVisible(true);
   };
 
@@ -164,8 +153,9 @@ const Home: React.FC<IProps> = () => {
         >
           <DrawerCard
             title="表信息列表"
-            onLoad={ImportDrawerRef.current?.loadMyData}
+            onLoad={onLoad}
             onImport={onImport}
+            pushRoute="/table/all"
           ></DrawerCard>
         </ImportDrawer>
       </div>

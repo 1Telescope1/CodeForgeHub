@@ -10,7 +10,7 @@ export const fetchUserDataAction = createAsyncThunk('fetchData',(payload, { disp
 const userSlice = createSlice({
   name: 'user',
   initialState: {
-    loginUser:{}
+    loginUser:null
   },
   
   reducers: {
