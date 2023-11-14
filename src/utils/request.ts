@@ -33,7 +33,10 @@ instance.interceptors.response.use(
       close();
       return Promise.reject(res.data);
     }
-    // 业务逻辑成功，返回响应数据，作为axios成功的结果
+    // 如果是返回的文件
+    if (res.config.responseType === "blob") {
+      return res;
+    }
     close();
     return res.data;
   },

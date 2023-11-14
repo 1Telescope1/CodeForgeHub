@@ -1,6 +1,7 @@
 const path = require("path");
 const CracoLessPlugin = require("craco-less");
 const ReactRefreshWebpackPlugin = require("@pmmmwh/react-refresh-webpack-plugin");
+const MonacoWebpackPlugin = require('monaco-editor-webpack-plugin');
 
 const resolve = (dir) => path.resolve(__dirname, dir);
 
@@ -30,6 +31,10 @@ module.exports = {
     plugins: [
       // 添加 React Refresh 插件
       new ReactRefreshWebpackPlugin(),
+      // 添加代码编辑器样式
+      new MonacoWebpackPlugin({
+        languages: ["sql", "json", "java", "typescript"],
+      }),
     ],
     configure: (webpackConfig) => {
       // 找到 babel-loader 的配置

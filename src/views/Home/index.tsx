@@ -22,6 +22,7 @@ import { generateBySchema } from "@/services/sql";
 import ImportDrawer from "@/components/ImportDrawer";
 import DrawerCard from "@/components/DrawerCard";
 import useCard from "@/utils/cardUtils";
+import GenerateResultCard from "@/components/GenerateResultCard";
 
 interface IProps {
   children?: ReactNode;
@@ -139,8 +140,7 @@ const Home: React.FC<IProps> = () => {
             xl={layout === "half" ? 12 : 24}
             order={layout === "output" ? 1 : 2}
           >
-            {/* <GenerateResultCard result={result} loading={genLoading} /> */}
-            456
+            <GenerateResultCard result={result} loading={genLoading} />
           </Col>
         </Row>
         <InputModal
