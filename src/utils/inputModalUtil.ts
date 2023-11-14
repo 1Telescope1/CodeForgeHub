@@ -4,8 +4,8 @@ import {
   SQL_INPUT_EXAMPLE,
 } from "@/constant/examples";
 import { inputModalParamsType } from "@/model/modalParamsType";
-import { getSchemaByAuto, getSchemaBySql } from "@/services/sql";
-import { message } from "antd";
+import { getSchemaByAuto, getSchemaByExcel, getSchemaBySql } from "@/services/sql";
+import { UploadProps, message } from "antd";
 import { useRef, useState } from "react";
 
 const useFormInput = () => {
@@ -66,6 +66,27 @@ const useFormInput = () => {
     },
   };
 
+   /**
+   * Excel 上传组件属性
+   */
+   const uploadProps: UploadProps = {
+    name: 'file',
+    showUploadList: false,
+    customRequest: async (options) => {
+      if (!options) {
+        return;
+      }
+      try {
+        const params = new FormData();
+        params.append('file', options.file);
+        const res = await getSchemaByExcel(params);
+        importTableSchema(res.data);
+      } catch (e: any) {
+        message.error('操作失败，' + e.message);
+      }
+    },
+  };
+
   // 设置modal显示或隐藏
   const [InputModalVisible, setInputModalVisible] = useState(false);
 
@@ -93,7 +114,8 @@ const useFormInput = () => {
     setInputModalVisible,
     modalParams,
     handleModalParams,
-    formInputRef
+    formInputRef,
+    uploadProps
   };
 };
 

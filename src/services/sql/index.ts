@@ -6,5 +6,9 @@ export const getSchemaByAuto=(data:GenerateByAutoRequest)=>request<TableSchema>(
 // 根据 SQL 获取 schema
 export const getSchemaBySql=(data:GenerateBySqlRequest)=>request<TableSchema>(`/sql/get/schema/sql`,'POST',data)
 
+// 根据 Excel 获取 schema
+export const getSchemaByExcel=(params:any)=>request<TableSchema>(`/sql/get/schema/excel`,'POST',params)
+
 // 根据 schema 生成
 export const generateBySchema=(data: TableSchema)=>request<GenerateVO>(`/sql/generate/schema`,'POST',data)
+

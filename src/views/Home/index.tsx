@@ -41,6 +41,7 @@ const Home: React.FC<IProps> = () => {
     modalParams,
     handleModalParams,
     formInputRef,
+    uploadProps,
   } = useFormInput();
 
   const { loadTableData } = useCard();
@@ -125,7 +126,9 @@ const Home: React.FC<IProps> = () => {
                   <Button onClick={() => handleModalParams("SqlModal")}>
                     导入建表SQL
                   </Button>
-                  <Button>导入Excel</Button>
+                  <Upload {...uploadProps}>
+                    <Button>导入 Excel</Button>
+                  </Upload>
                 </Space>
               </div>
               <FormInput ref={formInputRef} onSubmit={doGenerateBySchema} />
