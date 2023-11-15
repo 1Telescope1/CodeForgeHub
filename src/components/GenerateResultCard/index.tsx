@@ -10,7 +10,7 @@ import {
   Tabs,
   message,
 } from "antd";
-import React, { ReactNode, memo } from "react";
+import React, { ReactNode, memo, useEffect, useState } from "react";
 import copy from "copy-to-clipboard";
 import CodeEditor from "../CodeEditor";
 
@@ -24,6 +24,16 @@ interface IProps {
 const GenerateResultCard: React.FC<IProps> = (IProps) => {
   const { result, loading = false, showCard = true } = IProps;
 
+
+  const [dataList,setDataList]=useState<any>()
+  useEffect(()=>{
+    const p=result?.dataList.map(item=>{
+      return {...item,key:item.id}
+    })
+    setDataList(p)
+    console.log(dataList);
+  },[result])
+  
   // 下载 excel 数据
   const doDownloadDataExcel = async () => {
     if (!result) {
@@ -145,7 +155,7 @@ const GenerateResultCard: React.FC<IProps> = (IProps) => {
               <div style={{ marginTop: 16 }} />
               <Table
                 bordered={true}
-                dataSource={result.dataList}
+                dataSource={dataList}
                 columns={schemaToColumn(result.tableSchema)}
               />
             </>
