@@ -15,11 +15,10 @@ const headerStyle: React.CSSProperties = {
   paddingInline: 40,
   lineHeight: "64px",
   backgroundColor: "rgb(248,249,250)",
-  // borderBottom: "1px solid red"
 };
 
 const HeaderIndex: React.FC<IProps> = () => {
-  const menuList=[{label:'代码生成',key:'/home'},{label:'词库大全',key:'/about'}]
+  const menuList=[{label:'代码生成',key:'/home'},{label:'词库大全',key:'/dict'},{label:'表大全',key:'/tableInfo'}]
 
   const navigate=useNavigate()
   const pushRouter=(e:any)=>{

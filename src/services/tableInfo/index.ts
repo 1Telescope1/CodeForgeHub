@@ -23,3 +23,13 @@ export const listMyTableInfoByPage = (
     "GET",
     params
   );
+
+// 分页获取当前用户创建的资源列表
+export const listMyAddTableInfoByPage = (
+  params: TableInfoType.TableInfoQueryRequest
+) =>
+  request<PageInfo<TableInfoType.TableInfo>>(
+    `/table_info/my/add/list/page`,
+    "GET",
+    params
+  );
