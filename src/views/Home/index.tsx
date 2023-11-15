@@ -16,12 +16,12 @@ import {
 } from "antd";
 import { HomeWrapper } from "./style";
 import InputModal from "@/components/InputModal";
-import useFormInput from "@/utils/inputModalUtil";
+import useInputModal from "@/hooks/useInputModal";
 import FormInput from "@/components/FormInput";
 import { generateBySchema } from "@/services/sql";
 import ImportDrawer from "@/components/ImportDrawer";
 import DrawerCard from "@/components/DrawerCard";
-import useCard from "@/utils/cardUtils";
+import useDrawerCard from "@/hooks/useDrawerCard";
 import GenerateResultCard from "@/components/GenerateResultCard";
 
 interface IProps {
@@ -43,9 +43,9 @@ const Home: React.FC<IProps> = () => {
     handleModalParams,
     formInputRef,
     uploadProps,
-  } = useFormInput();
+  } = useInputModal();
 
-  const { loadTableData } = useCard();
+  const { loadTableData } = useDrawerCard();
   const onLoad = loadTableData();
 
   const ImportDrawerRef: any = useRef();

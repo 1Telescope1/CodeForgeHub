@@ -10,7 +10,7 @@ import {
 } from "@/services/tableInfo";
 import { shallowEqualApp, useAppSelector } from "@/store";
 
-const useCard = () => {
+const useDrawerCard = () => {
   const { loginUser } = useAppSelector(
     (state) => ({
       loginUser: state.user.loginUser,
@@ -141,4 +141,4 @@ const useCard = () => {
   };
 };
 
-export default useCard;
+export default useDrawerCard;

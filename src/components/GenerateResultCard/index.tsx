@@ -31,7 +31,6 @@ const GenerateResultCard: React.FC<IProps> = (IProps) => {
       return {...item,key:item.id}
     })
     setDataList(p)
-    console.log(dataList);
   },[result])
   
   // 下载 excel 数据

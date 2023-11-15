@@ -1,5 +1,5 @@
 import { shallowEqualApp, useAppSelector } from "@/store";
-import useCard from "@/utils/cardUtils";
+import useCard from "@/hooks/useDrawerCard";
 import { Button, Card, Empty, Input, Space } from "antd";
 import React, { ReactNode, memo, useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";

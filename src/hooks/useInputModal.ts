@@ -8,7 +8,7 @@ import { getSchemaByAuto, getSchemaByExcel, getSchemaBySql } from "@/services/sq
 import { UploadProps, message } from "antd";
 import { useRef, useState } from "react";
 
-const useFormInput = () => {
+const useInputModal = () => {
   // 获取子组件表单
   const formInputRef: any = useRef();
 
@@ -119,4 +119,4 @@ const useFormInput = () => {
   };
 };
 
-export default useFormInput;
+export default useInputModal;

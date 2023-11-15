@@ -32,7 +32,7 @@ import { FormInputWrapper } from "./style";
 import { UpOutlined, DownOutlined, PlusOutlined } from "@ant-design/icons";
 import copy from "copy-to-clipboard";
 import CreateModal from "../CreateModal";
-import useCreateModal from "@/utils/createModalUtils";
+import useCreateModal from "@/hooks/useCreateModal";
 import ImportDrawer from "../ImportDrawer";
 import DrawerCard from "../DrawerCard";
 
