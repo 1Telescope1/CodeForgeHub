@@ -1,9 +1,21 @@
 import React, { ReactNode, memo } from "react";
 
-import { Layout,Menu,Button } from "antd";
+import {
+  Layout,
+  Menu,
+  Button,
+  Dropdown,
+  Avatar,
+  MenuProps,
+  message,
+} from "antd";
 import { HeaderWrapper } from "./style";
 import { useNavigate } from "react-router";
-const { Header} = Layout;
+import { shallowEqualApp, useAppDispatch, useAppSelector } from "@/store";
+import { LogoutOutlined } from "@ant-design/icons";
+import { userLogout } from "@/services/user";
+import { changeUserAction } from "@/store/modules/user";
+const { Header } = Layout;
 
 interface IProps {
   children?: ReactNode;
@@ -18,38 +30,88 @@ const headerStyle: React.CSSProperties = {
 };
 
 const HeaderIndex: React.FC<IProps> = () => {
-  const menuList=[{label:'代码生成',key:'/home'},{label:'词库大全',key:'/dict'},{label:'表大全',key:'/tableInfo'}]
+  const menuList = [
+    { label: "代码生成", key: "/home" },
+    { label: "词库大全", key: "/dict" },
+    { label: "表大全", key: "/tableInfo" },
+  ];
 
-  const navigate=useNavigate()
-  const pushRouter=(e:any)=>{
-    navigate(e.key)
-  }
+  const navigate = useNavigate();
+  const pushRouter = (e: any) => {
+    navigate(e.key);
+  };
+
+  const { loginUser } = useAppSelector(
+    (state) => ({
+      loginUser: state.user.loginUser,
+    }),
+    shallowEqualApp
+  );
+  const dispatch = useAppDispatch();
+
+  const onClick: MenuProps["onClick"] = async ({ key }) => {
+    if (key === "lagout") {
+      try {
+        await userLogout();
+        message.success("已退出登录");
+      } catch (e: any) {
+        message.error("操作失败");
+      }
+    }
+    dispatch(changeUserAction(null));
+    navigate("/user/login");
+  };
+
+  const items: MenuProps["items"] = [
+    {
+      label: loginUser?.userName,
+      key: "current",
+      disabled: true,
+    },
+    {
+      label: "退出登录",
+      key: "logout",
+      danger: true,
+    },
+  ];
 
   return (
-      <Header style={headerStyle}>
-        <HeaderWrapper>
-          <div className="left">
-            <div className="img">
-              <img src={require("@/assets/logo.png")} alt="" />
-            </div>
-            <div className="content">
-              CodeForgeHub
-            </div>
+    <Header style={headerStyle}>
+      <HeaderWrapper>
+        <div className="left">
+          <div className="img">
+            <img src={require("@/assets/logo.png")} alt="" />
           </div>
-          <div className="center">
+          <div className="content">CodeForgeHub</div>
+        </div>
+        <div className="center">
           <Menu
             onClick={pushRouter}
-              theme="light"
-              mode="horizontal"
-              defaultSelectedKeys={["/home"]}
-              items={menuList}
-            />
-          </div>
-          <div className="right">
-              <Button type="primary" ghost onClick={()=>pushRouter({key:'/user/login'})}>登录</Button>
-          </div>
-        </HeaderWrapper>
-      </Header>
+            theme="light"
+            mode="horizontal"
+            defaultSelectedKeys={["/home"]}
+            items={menuList}
+          />
+        </div>
+        <div className="right">
+          {loginUser ? (
+            <Dropdown menu={{ items, onClick }}>
+              <div>
+                <Avatar>{loginUser.userName ?? "无"}</Avatar>
+              </div>
+            </Dropdown>
+          ) : (
+            <Button
+              type="primary"
+              ghost
+              onClick={() => pushRouter({ key: "/user/login" })}
+            >
+              登录
+            </Button>
+          )}
+        </div>
+      </HeaderWrapper>
+    </Header>
   );
 };
 
