@@ -1,17 +1,10 @@
 import { listMyAddTableInfoByPage } from "@/services/tableInfo";
-import {
-  Button,
-  Card,
-  Col,
-  Radio,
-  RadioChangeEvent,
-  Row,
-  Space,
-  message,
-} from "antd";
+import { Col, Radio, RadioChangeEvent, Row, message } from "antd";
 import React, { ReactNode, memo, useState } from "react";
-import { Search, useNavigate } from "react-router";
+import { useNavigate } from "react-router";
 import { TableInfoWrapper } from "./style";
+import InfoCard from "@/components/InfoCard";
+import useInfoCard from "@/hooks/useInfoCard";
 
 interface IProps {
   children?: ReactNode;
@@ -22,25 +15,11 @@ const TableInfo: React.FC<IProps> = () => {
 
   const navigate = useNavigate();
 
-  // 加载我的数据
-  const loadMyData = (
-    searchParams: TableInfoType.TableInfoQueryRequest,
-    setDataList: (dataList: TableInfoType.TableInfo[]) => void,
-    setTotal: (total: number) => void
-  ) => {
-    listMyAddTableInfoByPage(searchParams)
-      .then((res) => {
-        setDataList(res.data.records);
-        setTotal(res.data.total);
-      })
-      .catch((e) => {
-        message.error("加载失败，" + e.message);
-      });
-  };
+  const { publicTableLoad, privateTableLoad } = useInfoCard();
 
   // 导入表，跳转到主页
   const doImport = (tableInfo: TableInfoType.TableInfo) => {
-    navigate(`/?table_id=${tableInfo.id}`);
+    navigate(`/home?table_id=${tableInfo.id}`);
   };
 
   // 更改布局
@@ -68,18 +47,28 @@ const TableInfo: React.FC<IProps> = () => {
             xl={layout === "half" ? 12 : 24}
             order={layout === "output" ? 2 : 1}
           >
-            <Card
+            <InfoCard
               title="公开表信息"
-              extra={<Button type="primary" onClick={()=>{navigate('/home')}}>创建表</Button>}
-            >
-              
-            </Card>
+              showTag={false}
+              onImport={doImport}
+              btnText="创建表"
+              onLoad={publicTableLoad}
+            ></InfoCard>
           </Col>
           <Col
             xs={24}
             xl={layout === "half" ? 12 : 24}
             order={layout === "output" ? 1 : 2}
-          ></Col>
+          >
+            <InfoCard
+              title="个人表"
+              showTag={false}
+              onImport={doImport}
+              btnText="创建表"
+              onLoad={privateTableLoad}
+              needLogin={true}
+            ></InfoCard>
+          </Col>
         </Row>
       </div>
     </TableInfoWrapper>
