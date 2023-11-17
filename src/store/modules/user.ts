@@ -7,12 +7,30 @@ export const fetchUserDataAction = createAsyncThunk('fetchData',(payload, { disp
   })
 })
 
+interface loginUserType {
+	id: number;
+	userName: string;
+	userAccount: string;
+	userAvatar?: any;
+	gender?: any;
+	userRole: string;
+	userPassword: string;
+	createTime: string;
+	updateTime: string;
+	isDelete: number;
+}
+
+interface IUserState {
+  loginUser:loginUserType | null
+}
+
+const initialState:IUserState={
+  loginUser:null
+}
+
 const userSlice = createSlice({
   name: 'user',
-  initialState: {
-    loginUser:null
-  },
-  
+  initialState:initialState,
   reducers: {
     changeUserAction(state,{payload}) {
       state.loginUser=payload

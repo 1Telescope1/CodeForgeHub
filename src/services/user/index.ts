@@ -10,3 +10,6 @@ export const userLogin = (params: UserType.UserLoginRequest) =>
 
 // 获取当前登录用户
 export const getLoginUser = () => request<UserType.UserVO>(`/user/get/login`);
+
+// 退出登录
+export const userLogout = () => request<boolean>(`/user/logout`, "POST", {});

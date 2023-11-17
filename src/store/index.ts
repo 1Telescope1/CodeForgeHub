@@ -1,5 +1,8 @@
-import { configureStore } from "@reduxjs/toolkit";
-import userRducer from "./modules/user";
+import { Reducer, combineReducers, configureStore } from "@reduxjs/toolkit";
+import storage from "redux-persist/lib/storage";
+import { persistReducer, persistStore } from "redux-persist";
+
+import userReducer from "./modules/user";
 import {
   useSelector,
   TypedUseSelectorHook,
@@ -7,11 +10,25 @@ import {
   shallowEqual,
 } from "react-redux";
 
-const store = configureStore({
-  reducer: {
-    user: userRducer,
-  },
+const rootReducer = combineReducers({
+  user: userReducer,
 });
+
+const persistConfig = {
+  key: "root",
+  storage,
+  // 黑名单 不缓存的
+  blacklist: [],
+};
+
+const persistedReducer = persistReducer(persistConfig, rootReducer);
+
+const store = configureStore({
+  reducer: persistedReducer,
+});
+
+// 导出 persistor 以及 store
+export const persistor = persistStore(store);
 
 type GetStateFnType = typeof store.getState;
 export type IRootState = ReturnType<GetStateFnType>;
@@ -20,4 +37,4 @@ type DispatchType = typeof store.dispatch;
 export const useAppSelector: TypedUseSelectorHook<IRootState> = useSelector;
 export const useAppDispatch: () => DispatchType = useDispatch;
 export const shallowEqualApp = shallowEqual;
-export default store;
+export default  store ;
