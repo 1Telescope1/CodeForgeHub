@@ -23,3 +23,11 @@ export const listMyFieldInfoByPage = (
     "GET",
     params
   );
+
+// 生成创建字段 SQL
+export const generateCreateFieldSql = (data: Object) =>
+  request<string>(`/field_info/generate/sql`, "POST", data);
+
+// 删除
+export const deleteFieldInfo = (data: DeleteRequest) =>
+  request<boolean>(`/field_info/delete`, "POST", data);

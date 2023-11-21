@@ -60,14 +60,14 @@ const TableInfo: React.FC<IProps> = () => {
             xl={layout === "half" ? 12 : 24}
             order={layout === "output" ? 1 : 2}
           >
-            <InfoCard
+            {/* <InfoCard
               title="个人表"
               showTag={false}
               onImport={doImport}
               btnText="创建表"
               onLoad={privateTableLoad}
               needLogin={true}
-            ></InfoCard>
+            ></InfoCard> */}
           </Col>
         </Row>
       </div>

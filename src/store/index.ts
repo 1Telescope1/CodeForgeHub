@@ -25,6 +25,11 @@ const persistedReducer = persistReducer(persistConfig, rootReducer);
 
 const store = configureStore({
   reducer: persistedReducer,
+  middleware: (getDefaultMiddleware) =>
+    getDefaultMiddleware({
+      //关闭redux序列化检测
+      serializableCheck: false,
+    }),
 });
 
 // 导出 persistor 以及 store
@@ -37,4 +42,4 @@ type DispatchType = typeof store.dispatch;
 export const useAppSelector: TypedUseSelectorHook<IRootState> = useSelector;
 export const useAppDispatch: () => DispatchType = useDispatch;
 export const shallowEqualApp = shallowEqual;
-export default  store ;
+export default store;

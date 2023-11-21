@@ -1,4 +1,7 @@
-import { listMyAddTableInfoByPage, listTableInfoByPage } from "@/services/tableInfo";
+import {
+  listMyAddTableInfoByPage,
+  listTableInfoByPage,
+} from "@/services/tableInfo";
 import { shallowEqualApp, useAppSelector } from "@/store";
 import { message } from "antd";
 import { useState } from "react";
@@ -14,7 +17,7 @@ const useInfoCard = () => {
   // 默认分页大小
   const DEFAULT_PAGE_SIZE = 10;
   // 公开数据
-  const [dataList, setDataList] = useState<any[]>();
+  const [dataList, setDataList] = useState<any[]>([]);
   const [total, setTotal] = useState<number>(0);
   const [loading, setLoading] = useState<boolean>(false);
   const initSearchParams = {
@@ -26,7 +29,7 @@ const useInfoCard = () => {
   const [searchParams, setSearchParams] = useState<any>(initSearchParams);
 
   // 公开表大全
-  const publicTableLoad = () => {
+  const publicTableLoad = async () => {
     listTableInfoByPage({
       ...searchParams,
       // 只展示已审核通过的
@@ -39,12 +42,13 @@ const useInfoCard = () => {
       .catch((e) => {
         message.error('加载失败，' + e.message);
       });
+    
   };
   // 个人表大全
-  const privateTableLoad=(
-    searchParams: TableInfoType.TableInfoQueryRequest,
+  const privateTableLoad = async (
+    searchParams: any,
     setDataList: (dataList: TableInfoType.TableInfo[]) => void,
-    setTotal: (total: number) => void,
+    setTotal: (total: number) => void
   ) => {
     listMyAddTableInfoByPage(searchParams)
       .then((res) => {
@@ -52,10 +56,9 @@ const useInfoCard = () => {
         setTotal(res.data.total);
       })
       .catch((e) => {
-        message.error('加载失败，' + e.message);
+        message.error("加载失败，" + e.message);
       });
   };
-
 
   return {
     loginUser,
@@ -69,7 +72,8 @@ const useInfoCard = () => {
     searchParams,
     setSearchParams,
     publicTableLoad,
-    privateTableLoad
+    privateTableLoad,
+    DEFAULT_PAGE_SIZE,
   };
 };
 

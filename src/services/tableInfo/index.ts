@@ -33,3 +33,11 @@ export const listMyAddTableInfoByPage = (
     "GET",
     params
   );
+
+// 生成创建表 SQL
+export const generateCreateTableSql = (data: Object) =>
+  request<String>(`/table_info/generate/sql`, "POST", data);
+
+// 删除
+export const deleteTableInfo = (data: DeleteRequest) =>
+  request<boolean>(`/table_info/delete`, "POST", data);

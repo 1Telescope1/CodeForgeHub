@@ -2,6 +2,7 @@ import useInfoCard from "@/hooks/useInfoCard";
 import { Button, Card, Empty, Input, Space } from "antd";
 import React, { ReactNode, memo, useEffect } from "react";
 import { useNavigate } from "react-router";
+import DataInfoList from "../DataInfoList";
 
 interface IProps {
   title?: string;
@@ -40,6 +41,7 @@ const InfoCard: React.FC<IProps> = (IProps) => {
     setLoading,
     searchParams,
     setSearchParams,
+    DEFAULT_PAGE_SIZE
   } = useInfoCard();
 
   // 加载数据
@@ -50,11 +52,10 @@ const InfoCard: React.FC<IProps> = (IProps) => {
     }
     setLoading(true);
     if (onLoad) {
-      onLoad(searchParams, setDataList, setTotal);
+      onLoad(searchParams, setDataList, setTotal);      
     } 
     setLoading(false);
-    
-    
+        
   }, [searchParams]);
 
   return (
@@ -85,6 +86,20 @@ const InfoCard: React.FC<IProps> = (IProps) => {
               }}
             ></Input.Search>
           </Space>
+          <DataInfoList pagination={{
+                total,
+                onChange: (current) => {
+                  setSearchParams({ ...searchParams, current });
+                  window.scrollTo({
+                    top: 0,
+                  });
+                },
+                pageSize: DEFAULT_PAGE_SIZE,
+              }}
+              showTag={showTag}
+              dataList={dataList}
+              loading={loading}
+              onImport={onImport}></DataInfoList>
         </>
       ) : (
         <Empty
