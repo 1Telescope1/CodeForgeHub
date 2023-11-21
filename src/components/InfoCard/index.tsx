@@ -23,7 +23,6 @@ const InfoCard: React.FC<IProps> = (IProps) => {
     title,
     needLogin = false,
     showTag = true,
-    onLoad,
     onImport,
     btnText,
   } = IProps;
@@ -41,7 +40,9 @@ const InfoCard: React.FC<IProps> = (IProps) => {
     setLoading,
     searchParams,
     setSearchParams,
-    DEFAULT_PAGE_SIZE
+    DEFAULT_PAGE_SIZE,
+    publicTableLoad,
+    privateTableLoad
   } = useInfoCard();
 
   // 加载数据
@@ -51,9 +52,11 @@ const InfoCard: React.FC<IProps> = (IProps) => {
       return;
     }
     setLoading(true);
-    if (onLoad) {
-      onLoad(searchParams, setDataList, setTotal);      
-    } 
+    if (title=='公开表信息') {
+      publicTableLoad();      
+    } else if(title=='个人表') {
+      privateTableLoad(searchParams, setDataList, setTotal);
+    }
     setLoading(false);
         
   }, [searchParams]);

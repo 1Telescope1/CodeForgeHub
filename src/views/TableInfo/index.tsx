@@ -1,10 +1,8 @@
-import { listMyAddTableInfoByPage } from "@/services/tableInfo";
-import { Col, Radio, RadioChangeEvent, Row, message } from "antd";
+import { Col, Radio, RadioChangeEvent, Row } from "antd";
 import React, { ReactNode, memo, useState } from "react";
 import { useNavigate } from "react-router";
 import { TableInfoWrapper } from "./style";
 import InfoCard from "@/components/InfoCard";
-import useInfoCard from "@/hooks/useInfoCard";
 
 interface IProps {
   children?: ReactNode;
@@ -14,8 +12,6 @@ const TableInfo: React.FC<IProps> = () => {
   const [layout, setLayout] = useState("half");
 
   const navigate = useNavigate();
-
-  const { publicTableLoad, privateTableLoad } = useInfoCard();
 
   // 导入表，跳转到主页
   const doImport = (tableInfo: TableInfoType.TableInfo) => {
@@ -52,7 +48,6 @@ const TableInfo: React.FC<IProps> = () => {
               showTag={false}
               onImport={doImport}
               btnText="创建表"
-              onLoad={publicTableLoad}
             ></InfoCard>
           </Col>
           <Col
@@ -60,14 +55,13 @@ const TableInfo: React.FC<IProps> = () => {
             xl={layout === "half" ? 12 : 24}
             order={layout === "output" ? 1 : 2}
           >
-            {/* <InfoCard
+            <InfoCard
               title="个人表"
               showTag={false}
               onImport={doImport}
               btnText="创建表"
-              onLoad={privateTableLoad}
               needLogin={true}
-            ></InfoCard> */}
+            ></InfoCard>
           </Col>
         </Row>
       </div>
