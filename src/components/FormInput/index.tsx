@@ -35,6 +35,7 @@ import CreateModal from "../CreateModal";
 import useCreateModal from "@/hooks/useCreateModal";
 import ImportDrawer from "../ImportDrawer";
 import DrawerCard from "../DrawerCard";
+import InfoCard from "../InfoCard";
 
 const { Option } = Select;
 
@@ -477,15 +478,16 @@ const FormInput: React.FC<IProps> = forwardRef((IProps, ref) => {
                   visible={importFieldDrawerVisible}
                   onClose={() => setImportFieldDrawerVisible(false)}
                 >
-                  <DrawerCard
-                    title="字段信息列表"
-                    pushRoute="/home"
+                  <InfoCard
+                    title="个人字段"
+                    showTag={false}
                     onImport={(fieldInfo) => {
                       add(JSON.parse(fieldInfo.content), importIndex);
                       setImportFieldDrawerVisible(false);
                       message.success("导入成功");
                     }}
-                  ></DrawerCard>
+                    btnText="创建字段"
+                  ></InfoCard>
                 </ImportDrawer>
               </>
             )}

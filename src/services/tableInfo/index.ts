@@ -4,7 +4,7 @@ import { request } from "@/utils/request";
 export const addTableInfo = (data: TableInfoType.TableInfoAddRequest) =>
   request<number>(`/table_info/add`, "POST", data);
 
-// 分页获取列表
+// 分页获取公共表列表
 export const listTableInfoByPage = (
   params: TableInfoType.TableInfoQueryRequest
 ) =>
@@ -14,7 +14,7 @@ export const listTableInfoByPage = (
     params
   );
 
-// 分页获取当前用户的资源列表
+// 分页获取当前用户的公共表列表
 export const listMyTableInfoByPage = (
   params: TableInfoType.TableInfoQueryRequest
 ) =>
@@ -35,7 +35,7 @@ export const listMyAddTableInfoByPage = (
   );
 
 // 生成创建表 SQL
-export const generateCreateTableSql = (data: Object) =>
+export const generateCreateTableSql = (data: {id:number}) =>
   request<String>(`/table_info/generate/sql`, "POST", data);
 
 // 删除

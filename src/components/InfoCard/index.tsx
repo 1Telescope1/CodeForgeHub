@@ -42,7 +42,9 @@ const InfoCard: React.FC<IProps> = (IProps) => {
     setSearchParams,
     DEFAULT_PAGE_SIZE,
     publicTableLoad,
-    privateTableLoad
+    privateTableLoad,
+    publicFieldLoad,
+    privateFieldLoad,
   } = useInfoCard();
 
   // 加载数据
@@ -52,13 +54,23 @@ const InfoCard: React.FC<IProps> = (IProps) => {
       return;
     }
     setLoading(true);
-    if (title=='公开表信息') {
-      publicTableLoad();      
-    } else if(title=='个人表') {
-      privateTableLoad(searchParams, setDataList, setTotal);
+    switch (title) {
+      case "公开表信息":
+        publicTableLoad();
+        break;
+      case "个人表":
+        privateTableLoad(searchParams, setDataList, setTotal);
+        break;
+      case "公开字段信息":
+        publicFieldLoad();
+        break;
+      case "个人字段":
+        privateFieldLoad(searchParams, setDataList, setTotal);
+        break;
+      default:
+        break;
     }
     setLoading(false);
-        
   }, [searchParams]);
 
   return (
@@ -89,20 +101,22 @@ const InfoCard: React.FC<IProps> = (IProps) => {
               }}
             ></Input.Search>
           </Space>
-          <DataInfoList pagination={{
-                total,
-                onChange: (current) => {
-                  setSearchParams({ ...searchParams, current });
-                  window.scrollTo({
-                    top: 0,
-                  });
-                },
-                pageSize: DEFAULT_PAGE_SIZE,
-              }}
-              showTag={showTag}
-              dataList={dataList}
-              loading={loading}
-              onImport={onImport}></DataInfoList>
+          <DataInfoList
+            pagination={{
+              total,
+              onChange: (current) => {
+                setSearchParams({ ...searchParams, current });
+                window.scrollTo({
+                  top: 0,
+                });
+              },
+              pageSize: DEFAULT_PAGE_SIZE,
+            }}
+            showTag={showTag}
+            dataList={dataList}
+            loading={loading}
+            onImport={onImport}
+          ></DataInfoList>
         </>
       ) : (
         <Empty

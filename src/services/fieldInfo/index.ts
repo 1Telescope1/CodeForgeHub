@@ -4,7 +4,7 @@ import { request } from "@/utils/request";
 export const addFieldInfo = (data: FieldInfoType.FieldInfoAddRequest) =>
   request<number>(`/field_info/add`, "POST", data);
 
-// 分页获取列表
+// 分页获取公共字段列表
 export const listFieldInfoByPage = (
   params: FieldInfoType.FieldInfoQueryRequest
 ) =>
@@ -14,7 +14,7 @@ export const listFieldInfoByPage = (
     params
   );
 
-// 分页获取当前用户的资源列表
+// 分页获取当前用户的字段列表
 export const listMyFieldInfoByPage = (
   params: FieldInfoType.FieldInfoQueryRequest
 ) =>

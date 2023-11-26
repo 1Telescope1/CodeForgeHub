@@ -73,7 +73,7 @@ const DataInfoList: React.FC<IProps> = (IProps) => {
 
   // 生成sql代码
   const generateCreateSql = async (id: number) => {
-    generateSqlService[0](id)
+    generateSqlService[0]({id})
       .then((res: any) => {
         copy(res.data);
         message.success("复制建表 SQL 成功");

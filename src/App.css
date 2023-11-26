@@ -22,21 +22,6 @@ h1 {
   margin: 42px;
   text-align: center;
 }
- 
-a {
-  text-decoration: none;
-  color: rgb(0, 0, 0);
-  font-size: 18px;
-  font-family: Arial, Helvetica, sans-serif;
-  padding: 14px 25px;
-  background-color: transparent;
-  border: 2px solid rgb(12, 0, 66);
-}
- 
-a:hover {
-  background-color: rgb(12, 0, 66);
-  color: rgb(255, 255, 255);
-}
 .main {
   padding: 0 50px;
 }

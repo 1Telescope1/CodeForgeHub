@@ -23,6 +23,7 @@ import ImportDrawer from "@/components/ImportDrawer";
 import DrawerCard from "@/components/DrawerCard";
 import useDrawerCard from "@/hooks/useDrawerCard";
 import GenerateResultCard from "@/components/GenerateResultCard";
+import InfoCard from "@/components/InfoCard";
 
 interface IProps {
   children?: ReactNode;
@@ -154,12 +155,12 @@ const Home: React.FC<IProps> = () => {
           onClose={() => setImportTableDrawerVisible(false)}
           title="导入表"
         >
-          <DrawerCard
-            title="表信息列表"
-            onLoad={onLoad}
-            onImport={onImport}
-            pushRoute="/home"
-          ></DrawerCard>
+          <InfoCard
+              title="个人表"
+              showTag={false}
+              onImport={onImport}
+              btnText="创建表"
+            ></InfoCard>
         </ImportDrawer>
       </div>
     </HomeWrapper>

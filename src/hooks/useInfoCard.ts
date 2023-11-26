@@ -1,3 +1,4 @@
+import { listFieldInfoByPage, listMyFieldInfoByPage } from "@/services/fieldInfo";
 import {
   listMyAddTableInfoByPage,
   listTableInfoByPage,
@@ -40,9 +41,8 @@ const useInfoCard = () => {
         setTotal(res.data.total);
       })
       .catch((e) => {
-        message.error('加载失败，' + e.message);
+        message.error("加载失败，" + e.message);
       });
-    
   };
   // 个人表大全
   const privateTableLoad = async (
@@ -51,6 +51,36 @@ const useInfoCard = () => {
     setTotal: (total: number) => void
   ) => {
     listMyAddTableInfoByPage(searchParams)
+      .then((res) => {
+        setDataList(res.data.records);
+        setTotal(res.data.total);
+      })
+      .catch((e) => {
+        message.error("加载失败，" + e.message);
+      });
+  };
+  // 公开字段大全
+  const publicFieldLoad = async () => {
+    listFieldInfoByPage({
+      ...searchParams,
+      // 只展示已审核通过的
+      reviewStatus: 1,
+    })
+      .then((res) => {
+        setDataList(res.data.records);
+        setTotal(res.data.total);
+      })
+      .catch((e) => {
+        message.error("加载失败，" + e.message);
+      });
+  };
+  // 个人字段大全
+  const privateFieldLoad = async (
+    searchParams: FieldInfoType.FieldInfoQueryRequest,
+    setDataList: (dataList: FieldInfoType.FieldInfo[]) => void,
+    setTotal: (total: number) => void
+  ) => {
+    listMyFieldInfoByPage(searchParams)
       .then((res) => {
         setDataList(res.data.records);
         setTotal(res.data.total);
@@ -73,6 +103,8 @@ const useInfoCard = () => {
     setSearchParams,
     publicTableLoad,
     privateTableLoad,
+    publicFieldLoad,
+    privateFieldLoad,
     DEFAULT_PAGE_SIZE,
   };
 };
