@@ -33,6 +33,7 @@ const DataInfoList: React.FC<IProps> = (IProps) => {
   const [reportedId, setReportedId] = useState(0);
   const [generateSqlService, setGenerateSqlService] = useState<any>();
   const [deleteService, setDeleteService] = useState<any>();
+  const [contentType, setContentType] = useState<string>("table");
 
   const location = useLocation();
 
@@ -40,9 +41,11 @@ const DataInfoList: React.FC<IProps> = (IProps) => {
     if (location.pathname == "/tableInfo") {
       setGenerateSqlService([generateCreateTableSql]);
       setDeleteService([deleteTableInfo]);
+      setContentType("table");
     } else if (location.pathname == "/fieldInfo") {
       setGenerateSqlService([generateCreateFieldSql]);
       setDeleteService([deleteFieldInfo]);
+      setContentType("field");
     }
   }, []);
 
@@ -55,8 +58,8 @@ const DataInfoList: React.FC<IProps> = (IProps) => {
 
   // 删除节点
   const doDelete = async (id: number) => {
-    console.log('删除');
-    
+    console.log("删除");
+
     const hide = message.loading("正在删除");
     if (!id) return true;
     try {
@@ -73,7 +76,7 @@ const DataInfoList: React.FC<IProps> = (IProps) => {
 
   // 生成sql代码
   const generateCreateSql = async (id: number) => {
-    generateSqlService[0]({id})
+    generateSqlService[0]({ id })
       .then((res: any) => {
         copy(res.data);
         message.success("复制建表 SQL 成功");
@@ -82,6 +85,7 @@ const DataInfoList: React.FC<IProps> = (IProps) => {
         message.error("复制失败，" + e.message);
       });
   };
+
 
   return (
     <div className="data-info-list">
@@ -92,7 +96,7 @@ const DataInfoList: React.FC<IProps> = (IProps) => {
         pagination={pagination}
         dataSource={dataList}
         renderItem={(item, index) => {
-          const content: TableSchema = JSON.parse(item.content);
+          const content: any = JSON.parse(item.content);
           return (
             <List.Item
               key={index}
@@ -108,7 +112,35 @@ const DataInfoList: React.FC<IProps> = (IProps) => {
                 )
               }
             >
-              <Descriptions
+              {contentType == "table" ? (
+                <Descriptions
+                  title={
+                    <Space align="center">
+                      <div>{item.name}</div>
+                      <div>
+                        {showTag && item.reviewStatus === 1 && (
+                          <Tag color="success">公开</Tag>
+                        )}
+                        {item.userId === 1 && <Tag color="gold">官方</Tag>}
+                      </div>
+                    </Space>
+                  }
+                  column={2}
+                >
+                  <Descriptions.Item label="表名">
+                    {content.tableName}
+                  </Descriptions.Item>
+                  <Descriptions.Item label="表注释">
+                    {content.tableComment ?? "无"}
+                  </Descriptions.Item>
+                  <Descriptions.Item label="字段列表">
+                    {content.fieldList
+                      .map((field:any) => field.fieldName)
+                      .join(", ")}
+                  </Descriptions.Item>
+                </Descriptions>
+              ) : (
+                <Descriptions
                 title={
                   <Space align="center">
                     <div>{item.name}</div>
@@ -120,18 +152,34 @@ const DataInfoList: React.FC<IProps> = (IProps) => {
                     </div>
                   </Space>
                 }
-                column={2}
+                column={3}
               >
-                <Descriptions.Item label="表名">
-                  {content.tableName}
+                <Descriptions.Item label="字段名">
+                  {content.fieldName}
                 </Descriptions.Item>
-                <Descriptions.Item label="表注释">
-                  {content.tableComment ?? "无"}
+                <Descriptions.Item label="类型">
+                  {content.fieldType ?? '无'}
                 </Descriptions.Item>
-                <Descriptions.Item label="字段列表">
-                  {content.fieldList.map((field) => field.fieldName).join(", ")}
+                <Descriptions.Item label="注释">
+                  {content.comment ?? '无'}
+                </Descriptions.Item>
+                <Descriptions.Item label="默认值">
+                  {content.defaultValue ?? '无'}
+                </Descriptions.Item>
+                <Descriptions.Item label="自增">
+                  {content.autoIncrement ? '是' : '否'}
+                </Descriptions.Item>
+                <Descriptions.Item label="主键">
+                  {content.primaryKey ? '是' : '否'}
+                </Descriptions.Item>
+                <Descriptions.Item label="非空">
+                  {content.notNull ? '是' : '否'}
+                </Descriptions.Item>
+                <Descriptions.Item label="onUpdate">
+                  {content.onUpdate ?? '无'}
                 </Descriptions.Item>
               </Descriptions>
+              )}
               <Space
                 split={<Divider type="vertical" />}
                 style={{ fontSize: 14 }}
