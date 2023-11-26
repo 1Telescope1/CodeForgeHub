@@ -5,6 +5,9 @@ import "./App.css";
 import { useLocation, useRoutes } from "react-router-dom";
 import Header from "./components/Header";
 import Footer from "./components/Footer";
+import { useAppDispatch } from "./store";
+import { fetchUserDataAction } from "./store/modules/user";
+
 
 function App() {
   const location = useLocation();
@@ -18,6 +21,12 @@ function App() {
       setIsShowHeader(true)
     }
   }, [location]);
+
+  const dispath=useAppDispatch()
+  useEffect(()=>{
+    dispath(fetchUserDataAction())
+  },[])
+
 
   return (
     <div className="App">

@@ -32,7 +32,7 @@ const Login: React.FC<IProps> = () => {
       // 校验表单
       await form.validateFields();
 
-      const res = await userLogin({ ...fields });
+      const res = await userLogin({ ...fields });      
       message.success("登录成功");
       dispatch(changeUserAction(res.data));
 

@@ -7,6 +7,7 @@ const baseURL = process.env.REACT_APP_BASE_URL;
 const instance = axios.create({
   baseURL: baseURL,
   timeout: 20000,
+  withCredentials:true
 });
 
 // 2. 请求拦截器，携带token
@@ -29,8 +30,9 @@ instance.interceptors.request.use(
 // 3. 响应拦截器，剥离无效数据，401拦截
 instance.interceptors.response.use(
   (res) => {
+    
     if (res.data?.code !== 0) {
-      close();
+      close();      
       return Promise.reject(res.data);
     }
     // 如果是返回的文件
@@ -47,6 +49,7 @@ instance.interceptors.response.use(
 
     const response = err.response.data;
     close();
+    
     return Promise.reject(err);
   }
 );
