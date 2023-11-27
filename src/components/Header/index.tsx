@@ -35,6 +35,7 @@ const HeaderIndex: React.FC<IProps> = () => {
     { label: "词库大全", key: "/dict" },
     { label: "表大全", key: "/tableInfo" },
     { label: "字段大全", key: "/fieldInfo" },
+    { label: "学习", key: "/learn/1" },
   ];
 
   const navigate = useNavigate();

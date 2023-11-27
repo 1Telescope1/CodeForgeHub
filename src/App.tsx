@@ -23,9 +23,9 @@ function App() {
   }, [location]);
 
   const dispath=useAppDispatch()
-  useEffect(()=>{
-    dispath(fetchUserDataAction())
-  },[])
+  // useEffect(()=>{
+  //   dispath(fetchUserDataAction())
+  // },[])
 
 
   return (

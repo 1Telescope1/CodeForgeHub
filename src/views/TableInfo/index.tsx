@@ -57,7 +57,6 @@ const TableInfo: React.FC<IProps> = () => {
           >
             <InfoCard
               title="个人表"
-              showTag={false}
               onImport={doImport}
               btnText="创建表"
               needLogin={true}

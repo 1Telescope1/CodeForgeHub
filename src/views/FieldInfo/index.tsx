@@ -49,7 +49,6 @@ const FieldInfo: React.FC<IProps> = () => {
           >
             <InfoCard
               title="个人字段"
-              showTag={false}
               btnText="创建字段"
               needLogin={true}
             ></InfoCard>

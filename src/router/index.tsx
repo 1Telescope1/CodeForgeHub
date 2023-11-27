@@ -8,6 +8,7 @@ const Register=lazy(()=>import('@/views/User/Register'))
 const Dict=lazy(()=>import('@/views/Dict'))
 const TableInfo=lazy(()=>import('@/views/TableInfo'))
 const FieldInfo=lazy(()=>import('@/views/FieldInfo'))
+const Learn=lazy(()=>import('@/views/Learn'))
 const NotFound=lazy(()=>import('@/views/404'))
 
  
@@ -39,6 +40,10 @@ const routes:RouteObject[] = [
   {
     path: '/fieldInfo',
     element: <FieldInfo />,
+  },
+  {
+    path: '/learn/:levelKey',
+    element: <Learn />,
   },
   {
     path: '/404',

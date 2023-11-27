@@ -1,7 +1,7 @@
 const path = require("path");
 const CracoLessPlugin = require("craco-less");
 const ReactRefreshWebpackPlugin = require("@pmmmwh/react-refresh-webpack-plugin");
-const MonacoWebpackPlugin = require('monaco-editor-webpack-plugin');
+const MonacoWebpackPlugin = require("monaco-editor-webpack-plugin");
 
 const resolve = (dir) => path.resolve(__dirname, dir);
 
@@ -51,6 +51,13 @@ module.exports = {
           require.resolve("react-refresh/babel")
         );
       }
+
+      // 在webpackConfig中添加raw-loader的处理
+      webpackConfig.module.rules.push({
+        test: /\.(md|sql)$/,
+        use: "raw-loader",
+        include: path.resolve(__dirname, 'src')
+      });
 
       return webpackConfig;
     },
