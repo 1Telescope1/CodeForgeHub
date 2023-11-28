@@ -26,6 +26,7 @@ module.exports = {
         },
       },
     },
+    
   ],
   webpack: {
     plugins: [
@@ -56,7 +57,8 @@ module.exports = {
       webpackConfig.module.rules.push({
         test: /\.(md|sql)$/,
         use: "raw-loader",
-        include: path.resolve(__dirname, 'src')
+        include: path.resolve(__dirname, 'src'),
+        type: 'asset/source',
       });
 
       return webpackConfig;
