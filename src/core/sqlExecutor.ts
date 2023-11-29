@@ -38,8 +38,6 @@ export const initDB = async (initSql?: string) => {
  * @param db
  * @param sql
  */
-export const runSQL = (db: Database, sql: string) => {
-  console.log(db,sql);
-  
+export const runSQL = (db: Database, sql: string) => {  
   return db.exec(sql);
 };

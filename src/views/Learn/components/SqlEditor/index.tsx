@@ -4,6 +4,7 @@ import CodeEditor from "@/components/CodeEditor";
 import { Button, Card, Space, message } from "antd";
 import { initDB, runSQL } from "@/core/sqlExecutor";
 import { QueryExecResult } from "sql.js";
+import { format } from "sql-formatter";
 
 interface IProps {
   level: LevelType;
@@ -17,31 +18,42 @@ interface IProps {
 
 const SqlEditor: React.FC<IProps> = (IProps) => {
   const { level, onSubmit } = IProps;
-  const [initSql, setInitSql] = useState();
-  const [sqlValue, setSqlValue] = useState(
-    "-- 请在此处输入 SQL\n" + level.defaultSQL
-  );
+  const defaultSql = "-- 请在此处输入 SQL\n" + level.defaultSQL;
+  const [sqlValue, setSqlValue] = useState(defaultSql);
   const [db, setDb] = useState<any>();
 
   useEffect(() => {
     const initDabase = async () => {
       const res = await axios.get(level.initSQL);
-      setInitSql(res.data);
       setDb(await initDB(res.data));
     };
     initDabase();
   }, []);
 
+  // 提交
   const doSubmit = () => {
     if (!sqlValue) return;
     try {
       const result = runSQL(db, sqlValue);
       const answerResult = runSQL(db, level.answer);
       onSubmit(result, answerResult);
+      message.success("提交成功")
     } catch (error) {
       message.error("语句错误，" + error);
       onSubmit([], [], error as string);
     }
+  };
+
+  // 格式化
+  const doFormat = () => {
+    if (!sqlValue) return;
+    const result = format(sqlValue, { language: "sqlite" });
+    setSqlValue(result);
+  };
+
+  // 重置
+  const resetSqlValue = () => {
+    setSqlValue(defaultSql);
   };
 
   return (
@@ -52,8 +64,8 @@ const SqlEditor: React.FC<IProps> = (IProps) => {
           <Button type="primary" style={{ width: 180 }} onClick={doSubmit}>
             运行
           </Button>
-          <Button>格式化</Button>
-          <Button>重置</Button>
+          <Button onClick={doFormat}>格式化</Button>
+          <Button onClick={resetSqlValue}>重置</Button>
         </Space>
       </Card>
     </div>
