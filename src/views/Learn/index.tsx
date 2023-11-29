@@ -4,6 +4,9 @@ import { RadioChangeEvent, Radio, Row, Col, Card } from "antd";
 import { useParams } from "react-router";
 import { getLevelByKey } from "@/assets/levels";
 import SqlProfile from "./components/SqlProfile";
+import SqlEditor from "./components/SqlEditor";
+import { QueryExecResult } from "sql.js";
+import { checkResult } from "@/core/sqlResult";
 
 interface IProps {
   children?: ReactNode;
@@ -23,6 +26,23 @@ const Learn: React.FC<IProps> = () => {
   useEffect(() => {
     setLevel(getLevelByKey(levelKey as string));
   }, [levelKey]);
+
+
+  // 处理运行逻辑
+  const [result,setResult]=useState<QueryExecResult[]>([])
+  const [answerResult,setAnswerResult]=useState<QueryExecResult[]>([])
+  const [errorMsgRef,setErrorMsg]=useState<any>()
+  const [resultStatus,setResultStatus]=useState(-1)
+  const onSubmit = (
+    res: QueryExecResult[],
+    answerRes: QueryExecResult[],
+    errorMsg?: string
+  ) => {
+    setResult(res)
+    setAnswerResult(answerRes)
+    setErrorMsg(errorMsg)
+    setResultStatus(checkResult(res,answerRes))
+  };
 
   return (
     <LearnWrapper>
@@ -50,7 +70,9 @@ const Learn: React.FC<IProps> = () => {
             xs={24}
             xl={layout === "half" ? 12 : 24}
             order={layout === "output" ? 1 : 2}
-          ></Col>
+          >
+            {level && <SqlEditor level={level} onSubmit={onSubmit}></SqlEditor>}
+          </Col>
         </Row>
       </div>
     </LearnWrapper>

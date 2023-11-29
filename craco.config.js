@@ -51,7 +51,21 @@ module.exports = {
         babelLoader.use.options.plugins.push(
           require.resolve("react-refresh/babel")
         );
-      }
+      };
+
+      // 添加path-browserify作为解析path模块的polyfill
+      webpackConfig.resolve.fallback = {
+        ...webpackConfig.resolve.fallback,
+        path: require.resolve("path-browserify"),
+        fs:false
+      };
+
+      // webpack 在处理以 "sql-wasm.js" 结尾的文件时，将其视为 JavaScript
+      webpackConfig.module.rules.push({
+        test: /sql-wasm\.js$/,
+        type: 'javascript/auto',
+      });
+    
 
       return webpackConfig;
     },
