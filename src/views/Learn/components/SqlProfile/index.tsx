@@ -25,7 +25,11 @@ const SqlProfile: React.FC<IProps> = (IProps) => {
     });
   }, [level]);
 
-  return <Viewer value={content} plugins={plugins}></Viewer>;
+  return (
+    <div style={{ height: 700, overflow: "auto" }}>
+      <Viewer value={content} plugins={plugins}></Viewer>
+    </div>
+  );
 };
 
 export default memo(SqlProfile);

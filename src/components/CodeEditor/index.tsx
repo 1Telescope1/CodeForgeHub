@@ -6,11 +6,12 @@ interface IProps {
   language?: string;
   height?: number;
   onChange?: (value: string) => void;
+  isReadOnly?:boolean
   children?: ReactNode;
 }
 
 const CodeEditor: React.FC<IProps> = (IProps) => {
-  const { value, height = 480, language = 'sql', onChange } = IProps;
+  const { value, height = 480, language = 'sql', onChange,isReadOnly=false } = IProps;
 
   // const editorDidMount = (editor, monaco) => {
   //   console.log('editorDidMount', editor);
@@ -22,6 +23,7 @@ const CodeEditor: React.FC<IProps> = (IProps) => {
     fontSize: 14,
     formatOnPaste: true,
     automaticLayout: true,
+    readOnly: isReadOnly,
     minimap: {
       enabled: false,
     },

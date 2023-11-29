@@ -1,7 +1,7 @@
 import React, { ReactNode, memo, useEffect, useState } from "react";
 import axios from "axios";
 import CodeEditor from "@/components/CodeEditor";
-import { Button, Card, Space, message } from "antd";
+import { Button, Space, message } from "antd";
 import { initDB, runSQL } from "@/core/sqlExecutor";
 import { QueryExecResult } from "sql.js";
 import { format } from "sql-formatter";
@@ -37,10 +37,10 @@ const SqlEditor: React.FC<IProps> = (IProps) => {
       const result = runSQL(db, sqlValue);
       const answerResult = runSQL(db, level.answer);
       onSubmit(result, answerResult);
-      message.success("提交成功")
-    } catch (error) {
-      message.error("语句错误，" + error);
-      onSubmit([], [], error as string);
+      message.success("运行成功");
+    } catch (error:any) {
+      message.error("语句错误，" + error.message);
+      onSubmit([], [], error.message as string);
     }
   };
 
@@ -58,16 +58,14 @@ const SqlEditor: React.FC<IProps> = (IProps) => {
 
   return (
     <div>
-      <Card title="请在此输入代码">
-        <CodeEditor value={sqlValue} onChange={setSqlValue} language="sql" />
-        <Space style={{ marginTop: 20 }}>
-          <Button type="primary" style={{ width: 180 }} onClick={doSubmit}>
-            运行
-          </Button>
-          <Button onClick={doFormat}>格式化</Button>
-          <Button onClick={resetSqlValue}>重置</Button>
-        </Space>
-      </Card>
+      <CodeEditor height={250} value={sqlValue} onChange={setSqlValue} language="sql" />
+      <Space style={{ marginTop: 20 }}>
+        <Button type="primary" style={{ width: 180 }} onClick={doSubmit}>
+          运行
+        </Button>
+        <Button onClick={doFormat}>格式化</Button>
+        <Button onClick={resetSqlValue}>重置</Button>
+      </Space>
     </div>
   );
 };

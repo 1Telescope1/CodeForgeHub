@@ -7,6 +7,7 @@ import SqlProfile from "./components/SqlProfile";
 import SqlEditor from "./components/SqlEditor";
 import { QueryExecResult } from "sql.js";
 import { checkResult } from "@/core/sqlResult";
+import SqlResult from "./components/SqlResult";
 
 interface IProps {
   children?: ReactNode;
@@ -27,21 +28,20 @@ const Learn: React.FC<IProps> = () => {
     setLevel(getLevelByKey(levelKey as string));
   }, [levelKey]);
 
-
   // 处理运行逻辑
-  const [result,setResult]=useState<QueryExecResult[]>([])
-  const [answerResult,setAnswerResult]=useState<QueryExecResult[]>([])
-  const [errorMsgRef,setErrorMsg]=useState<any>()
-  const [resultStatus,setResultStatus]=useState(-1)
+  const [result, setResult] = useState<QueryExecResult[]>([]);
+  const [answerResult, setAnswerResult] = useState<QueryExecResult[]>([]);
+  const [errorMsg, setErrorMsg] = useState<any>();
+  const [resultStatus, setResultStatus] = useState(-1);
   const onSubmit = (
     res: QueryExecResult[],
     answerRes: QueryExecResult[],
     errorMsg?: string
   ) => {
-    setResult(res)
-    setAnswerResult(answerRes)
-    setErrorMsg(errorMsg)
-    setResultStatus(checkResult(res,answerRes))
+    setResult(res);
+    setAnswerResult(answerRes);
+    setErrorMsg(errorMsg);    
+    setResultStatus(checkResult(res, answerRes));
   };
 
   return (
@@ -71,7 +71,12 @@ const Learn: React.FC<IProps> = () => {
             xl={layout === "half" ? 12 : 24}
             order={layout === "output" ? 1 : 2}
           >
-            {level && <SqlEditor level={level} onSubmit={onSubmit}></SqlEditor>}
+            {level && (
+              <Card title="请在此输入代码">
+                <SqlEditor level={level} onSubmit={onSubmit}></SqlEditor>{" "}
+                <SqlResult level={level} result={result} resultStatus={resultStatus} errorMsg={errorMsg}></SqlResult>
+              </Card>
+            )}
           </Col>
         </Row>
       </div>
