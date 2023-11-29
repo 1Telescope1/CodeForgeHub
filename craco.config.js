@@ -53,14 +53,6 @@ module.exports = {
         );
       }
 
-      // 在webpackConfig中添加raw-loader的处理
-      webpackConfig.module.rules.push({
-        test: /\.(md|sql)$/,
-        use: "raw-loader",
-        include: path.resolve(__dirname, 'src'),
-        type: 'asset/source',
-      });
-
       return webpackConfig;
     },
     alias: {

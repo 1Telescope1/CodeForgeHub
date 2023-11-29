@@ -1,8 +1,6 @@
 import md from "./README.md?raw";
 import sql from "./createTable.sql?raw";
 
-console.log(md);
-
 export default {
   key: "level1",
   title: "基础语法 - 查询 - 全表查询",

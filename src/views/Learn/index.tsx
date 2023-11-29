@@ -22,7 +22,6 @@ const Learn: React.FC<IProps> = () => {
 
   useEffect(() => {
     setLevel(getLevelByKey(levelKey as string));
-    console.log(getLevelByKey(levelKey as string));
   }, [levelKey]);
 
   return (
