@@ -10,10 +10,10 @@ interface IProps {
 }
 
 const Levels: React.FC<IProps> = () => {
-  const navigate=useNavigate()
-  const pushLevel=(key:number)=>{    
-    navigate(`/learn/level${key}`)
-  }
+  const navigate = useNavigate();
+  const pushLevel = (item: LevelType) => {
+    navigate(`/learn/${item.key}`);
+  };
 
   return (
     <LevelsWrapper>
@@ -22,11 +22,13 @@ const Levels: React.FC<IProps> = () => {
           <Card title="主线关卡">
             <List
               itemLayout="horizontal"
-              pagination={{position:'bottom'}}
+              pagination={{ position: "bottom" }}
               dataSource={mainLevels}
               renderItem={(item, index) => (
-                <List.Item extra={<Button onClick={()=>pushLevel(index)}>挑战</Button>}>
-                  <div>{`${index+1}、${item.title}`}</div>
+                <List.Item
+                  extra={<Button onClick={() => pushLevel(item)}>挑战</Button>}
+                >
+                  <div>{`${index + 1}、${item.title}`}</div>
                 </List.Item>
               )}
             ></List>
@@ -34,13 +36,15 @@ const Levels: React.FC<IProps> = () => {
         </Col>
         <Col xl={12} md={24}>
           <Card title="自定义关卡">
-          <List
+            <List
               itemLayout="horizontal"
-              pagination={{position:'bottom'}}
+              pagination={{ position: "bottom" }}
               dataSource={customLevels}
               renderItem={(item, index) => (
-                <List.Item extra={<Button onClick={()=>pushLevel(index)}>挑战</Button>}>
-                  <div>{`${index+1}、${item.title}`}</div>
+                <List.Item
+                  extra={<Button onClick={() => pushLevel(item)}>挑战</Button>}
+                >
+                  <div>{`${index + 1}、${item.title}`}</div>
                 </List.Item>
               )}
             ></List>
