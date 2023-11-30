@@ -10,7 +10,7 @@ import {
   message,
 } from "antd";
 import { HeaderWrapper } from "./style";
-import { useNavigate } from "react-router";
+import { useLocation, useNavigate } from "react-router";
 import { shallowEqualApp, useAppDispatch, useAppSelector } from "@/store";
 import { LogoutOutlined } from "@ant-design/icons";
 import { userLogout } from "@/services/user";
@@ -35,10 +35,12 @@ const HeaderIndex: React.FC<IProps> = () => {
     { label: "词库大全", key: "/dict" },
     { label: "表大全", key: "/tableInfo" },
     { label: "字段大全", key: "/fieldInfo" },
-    { label: "学习", key: "/learn/1" },
+    // { label: "学习", key: "/learn/level1" },
+    { label: "关卡", key: "/levels" },
   ];
 
   const navigate = useNavigate();
+  const location = useLocation();
   const pushRouter = (e: any) => {
     navigate(e.key);
   };
@@ -93,6 +95,7 @@ const HeaderIndex: React.FC<IProps> = () => {
             mode="horizontal"
             defaultSelectedKeys={["/home"]}
             items={menuList}
+            selectedKeys={[location.pathname]}
           />
         </div>
         <div className="right">

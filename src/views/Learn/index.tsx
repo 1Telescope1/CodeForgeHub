@@ -40,7 +40,7 @@ const Learn: React.FC<IProps> = () => {
   ) => {
     setResult(res);
     setAnswerResult(answerRes);
-    setErrorMsg(errorMsg);    
+    setErrorMsg(errorMsg);
     setResultStatus(checkResult(res, answerRes));
   };
 
@@ -74,7 +74,12 @@ const Learn: React.FC<IProps> = () => {
             {level && (
               <Card title="请在此输入代码">
                 <SqlEditor level={level} onSubmit={onSubmit}></SqlEditor>{" "}
-                <SqlResult level={level} result={result} resultStatus={resultStatus} errorMsg={errorMsg}></SqlResult>
+                <SqlResult
+                  level={level}
+                  result={result}
+                  resultStatus={resultStatus}
+                  errorMsg={errorMsg}
+                ></SqlResult>
               </Card>
             )}
           </Col>
