@@ -33,7 +33,7 @@ const DataInfoList: React.FC<IProps> = (IProps) => {
   const [reportedId, setReportedId] = useState(0);
   const [generateSqlService, setGenerateSqlService] = useState<any>();
   const [deleteService, setDeleteService] = useState<any>();
-  const [contentType, setContentType] = useState<string>("table");
+  const [contentType, setContentType] = useState<string>("field");
 
   const location = useLocation();
 
