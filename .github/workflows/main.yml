@@ -6,6 +6,9 @@ on:
     branches:
       # mian分支，你也可以改成其他分支
       - main
+# 启用写入的权限配置
+permissions:
+  contents: write
 jobs:
   # 任务ID
   build:
