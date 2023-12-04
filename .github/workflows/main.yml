@@ -18,6 +18,9 @@ jobs:
     steps:
     # 使用别人的action
     - uses: actions/checkout@v3
+      with:
+        node-version: 16
+        cache: 'npm'
     # 步骤名称
     - name: npm install
       # 步骤执行指令
