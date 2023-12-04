@@ -5,8 +5,7 @@ import "./App.css";
 import { useLocation, useRoutes } from "react-router-dom";
 import Header from "./components/Header";
 import Footer from "./components/Footer";
-import { useAppDispatch } from "./store";
-import { fetchUserDataAction } from "./store/modules/user";
+import LoadPage from "./components/LoadPage";
 
 
 function App() {
@@ -22,15 +21,11 @@ function App() {
     }
   }, [location]);
 
-  const dispath=useAppDispatch()
-  // useEffect(()=>{
-  //   dispath(fetchUserDataAction())
-  // },[])
 
 
   return (
     <div className="App">
-      <Suspense fallback={"loading..."}>
+      <Suspense fallback={<LoadPage></LoadPage>}>
         {isShowHeader && <Header></Header>}
         <div className="main">{useRoutes(routes)}</div>
         <Footer></Footer>

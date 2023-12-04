@@ -32,7 +32,7 @@ const headerStyle: React.CSSProperties = {
 const HeaderIndex: React.FC<IProps> = () => {
   const menuList = [
     { label: "代码生成", key: "/home" },
-    { label: "词库大全", key: "/dict" },
+    // { label: "词库大全", key: "/dict" },
     { label: "表大全", key: "/tableInfo" },
     { label: "字段大全", key: "/fieldInfo" },
     // { label: "学习", key: "/learn/level1" },
