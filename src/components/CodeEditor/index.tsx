@@ -1,5 +1,6 @@
 import React, { ReactNode } from 'react';
 import MonacoEditor from 'react-monaco-editor';
+// const MonacoEditor = React.lazy(() => import('react-monaco-editor'));
 
 interface IProps {
   value: string;

@@ -4,7 +4,6 @@ export const LoadingWrapper = styled.div`
   padding: 0;
   margin: 0;
   box-sizing: border-box;
-  background-color: #e25a61;
   .container {
     height: 31em;
     width: 31em;
@@ -325,6 +324,7 @@ export const LoadingWrapper = styled.div`
   .loader div {
     position: absolute;
     height: 36px;
+    color:  #e25a61;
   }
 
   .loader div {
@@ -333,7 +333,7 @@ export const LoadingWrapper = styled.div`
     opacity: 0;
     animation: move 2s linear infinite;
     transform: rotate(180deg);
-    color: #fff;
+    color: #e25a61;
     font-size: 2em;
   }
 
