@@ -22,13 +22,15 @@ const SqlEditor: React.FC<IProps> = (IProps) => {
   const [sqlValue, setSqlValue] = useState(defaultSql);
   const [db, setDb] = useState<any>();
 
+
   useEffect(() => {
     const initDabase = async () => {
       const res = await axios.get(level.initSQL);
       setDb(await initDB(res.data));
     };
     initDabase();
-  }, []);
+    setSqlValue("-- 请在此处输入 SQL\n" + level.defaultSQL)    
+  }, [level]);
 
   // 提交
   const doSubmit = () => {

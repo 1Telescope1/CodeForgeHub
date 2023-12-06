@@ -81,7 +81,7 @@ const SqlResult: React.FC<IProps> = (IProps) => {
       >
         <Collapse.Panel key={1} header="查看执行结果">
           <Card title="执行结果" extra={resultType}>
-            {!errorMsg==true ? <Table columns={columns} dataSource={data}></Table> : '❌ 语句错误：{ errorMsg }'}
+            {!errorMsg==true ? <Table style={{ overflowX: 'auto' }} columns={columns} dataSource={data}></Table> : '❌ 语句错误：{ errorMsg }'}
           </Card>
         </Collapse.Panel>
         <Collapse.Panel key={2} header="查看建表语句">
