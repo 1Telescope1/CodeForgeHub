@@ -58,7 +58,7 @@ const Register: React.FC<IProps> = () => {
       <div className="content">
         <div className="header">
           <div className="img">
-            <img src={require("@/assets/logo.png")} alt="" />
+            <img src={require("@/assets/img/logo.png")} alt="" />
           </div>
           <div className="name">CodeForgeHub</div>
         </div>

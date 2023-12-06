@@ -1,8 +1,8 @@
 import styled from "styled-components";
 
-export const HeaderWrapper=styled.div`
+export const HeaderWrapper = styled.div`
   display: flex;
-  color: rgb(37,37,38);
+  color: rgb(37, 37, 38);
 
   .left {
     width: 200px;
@@ -10,6 +10,7 @@ export const HeaderWrapper=styled.div`
     align-items: center;
     font-weight: 700;
     .img {
+      margin-right: 5px;
       width: 35px;
       height: 35px;
       img {
@@ -25,4 +26,4 @@ export const HeaderWrapper=styled.div`
     width: 200px;
     text-align: right;
   }
-`
+`;

@@ -84,7 +84,7 @@ const HeaderIndex: React.FC<IProps> = () => {
       <HeaderWrapper>
         <div className="left">
           <div className="img">
-            <img src={require("@/assets/logo.png")} alt="" />
+            <img src={require("@/assets/img/logo.png")} alt="" />
           </div>
           <div className="content">CodeForgeHub</div>
         </div>
